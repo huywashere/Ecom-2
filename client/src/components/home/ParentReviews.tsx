@@ -26,7 +26,7 @@ const REVIEWS = [
 
 export default function ParentReviews() {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 border-t border-neutral-200">
+    <section className="max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12 py-12 sm:py-20 border-t border-neutral-200">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
         <p className="text-xs font-black uppercase tracking-widest text-[#FF007A]">

@@ -12,7 +12,7 @@ export default function HalloweenSection() {
   ).slice(0, 4);
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 border-t border-neutral-100">
+    <section className="max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12 py-10 sm:py-16 border-t border-neutral-100">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-[#FF007A] text-white text-[10px] font-black uppercase tracking-widest mb-2">

@@ -34,7 +34,7 @@ const CATEGORIES = [
 
 export default function CategoryBlock() {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <section className="max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12 py-8 sm:py-12">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         {CATEGORIES.map((cat) => (
           <Link

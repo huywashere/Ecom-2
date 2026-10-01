@@ -103,7 +103,7 @@ export default function ProductDetailPage() {
 
   if (loading || !product) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-20 text-center">
+      <div className="max-w-[1920px] mx-auto px-4 py-20 text-center">
         <div className="inline-block w-8 h-8 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
         <p className="mt-3 text-xs font-black uppercase text-neutral-500">Loading Product...</p>
       </div>
@@ -136,7 +136,7 @@ export default function ProductDetailPage() {
   const relatedProducts = DEMO_PRODUCTS.filter((p) => p.slug !== product.slug).slice(0, 4);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+    <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
       {/* 1. Breadcrumbs */}
       <nav className="flex items-center gap-1.5 text-xs font-bold uppercase text-neutral-400 mb-6">
         <Link href="/" className="hover:text-black transition">Home</Link>

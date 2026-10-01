@@ -6,7 +6,7 @@ import { Truck, RotateCcw, Heart } from 'lucide-react';
 export default function ValuePropsBar() {
   return (
     <section className="w-full bg-[#111111] text-white border-y border-neutral-800 py-3.5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="max-w-[1920px] mx-auto px-4 sm:px-8">
         <div className="grid grid-cols-3 divide-x divide-neutral-800 text-center">
           <div className="flex items-center justify-center gap-2 sm:gap-3 px-2">
             <Truck className="w-4 h-4 sm:w-5 sm:h-5 text-[#00B2FE] shrink-0" />

@@ -110,7 +110,7 @@ export default function CheckoutPage() {
     <div className="min-h-screen bg-neutral-50 text-neutral-900 pb-16">
       {/* Top Header */}
       <div className="bg-white border-b border-neutral-200 py-4 px-6 sm:px-12">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-[1920px] mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <span className="font-black text-2xl tracking-tighter uppercase text-black">BEAST</span>
             <span className="text-[10px] font-black uppercase tracking-widest px-1.5 py-0.5 bg-black text-white">
@@ -124,7 +124,7 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left Form: Contact, Shipping, Payment */}
           <form onSubmit={handlePlaceOrder} className="lg:col-span-7 space-y-8">

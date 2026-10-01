@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react';
 
 export default function EditorialFootball() {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <section className="max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12 py-8 sm:py-12">
       <div className="bg-[#111111] text-white rounded overflow-hidden grid grid-cols-1 lg:grid-cols-12 items-center">
         {/* Left Graphic */}
         <div className="lg:col-span-6 relative h-[320px] sm:h-[420px] lg:h-[480px] bg-neutral-900 order-2 lg:order-1">

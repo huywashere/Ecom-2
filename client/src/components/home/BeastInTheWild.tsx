@@ -14,7 +14,7 @@ const WILD_IMAGES = [
 export default function BeastInTheWild() {
   return (
     <section className="w-full bg-[#111111] text-white py-12 sm:py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12">
         {/* Header */}
         <div className="text-center max-w-xl mx-auto mb-10 space-y-2">
           <p className="text-xs font-black uppercase tracking-widest text-[#00B2FE] flex items-center justify-center gap-1.5">

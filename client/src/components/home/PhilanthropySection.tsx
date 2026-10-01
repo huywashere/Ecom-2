@@ -6,7 +6,7 @@ import { Heart, ExternalLink } from 'lucide-react';
 
 export default function PhilanthropySection() {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
+    <section className="max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12 py-10 sm:py-16">
       <div className="bg-[#18191C] text-white rounded overflow-hidden grid grid-cols-1 lg:grid-cols-12 items-center">
         {/* Left Content */}
         <div className="lg:col-span-6 p-8 sm:p-12 lg:p-14 space-y-6">

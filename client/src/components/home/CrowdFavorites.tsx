@@ -10,7 +10,7 @@ export default function CrowdFavorites() {
   const favoriteProducts = DEMO_PRODUCTS.slice(0, 8);
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <section className="max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12 py-10 sm:py-16">
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>

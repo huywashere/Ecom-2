@@ -114,7 +114,7 @@ function ProductsContent() {
       : 'All Official Merchandise';
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div className="max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12 py-8 sm:py-12">
       {/* Header Banner */}
       <div className="border-b border-neutral-200 pb-8 mb-8 space-y-3">
         <h1 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black">

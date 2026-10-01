@@ -50,7 +50,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-40 w-full bg-white select-none">
       {/* 1. Announcement Bar */}
       <div className="bg-[#EAEAEA] text-black text-[11px] sm:text-xs font-bold uppercase tracking-wider py-1.5 px-4 border-b border-neutral-200">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-[1920px] mx-auto flex items-center justify-between">
           <div className="hidden sm:flex items-center gap-4 text-neutral-600 font-semibold text-[11px]">
             <span>1% DONATED TO CHARITY</span>
             <span>•</span>
@@ -102,7 +102,7 @@ export default function Navbar() {
       </div>
 
       {/* 2. Main Navigation Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-2 pb-1.5">
+      <div className="max-w-[1920px] mx-auto px-4 sm:px-6 pt-2 pb-1.5">
         <div className="bg-white rounded border border-neutral-200 shadow-sm px-4 py-2 flex flex-col gap-2">
           {/* Top Row: Mobile Toggle / Logo / SHOP-LEARN-WATCH / Actions */}
           <div className="flex items-center justify-between h-11">

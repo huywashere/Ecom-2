@@ -30,7 +30,7 @@ export default function HeroBanner() {
         />
 
         {/* Content Overlay */}
-        <div className="relative z-10 max-w-7xl mx-auto w-full px-6 sm:px-10 lg:px-12 py-16 flex flex-col justify-center items-start">
+        <div className="relative z-10 max-w-[1920px] mx-auto w-full px-6 sm:px-10 lg:px-16 py-16 flex flex-col justify-center items-start">
           <div className="max-w-xl space-y-4">
             {/* Division Badge */}
             <div className="inline-flex items-center gap-2 border-y border-white/40 py-1 px-2 text-[11px] font-black uppercase tracking-[0.25em] text-white/90">
