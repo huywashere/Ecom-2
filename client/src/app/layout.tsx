@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/layout/CartDrawer';
 import PredictiveSearch from '@/components/layout/PredictiveSearch';
+import TechConsultantBot from '@/components/chat/TechConsultantBot';
 
 export const metadata: Metadata = {
   title: 'TITAN TECH | Siêu Thị Máy Tính, Laptop & Đồ Điện Tử Cao Cấp Flagship',
@@ -27,6 +28,7 @@ export default function RootLayout({
         </main>
         <CartDrawer />
         <PredictiveSearch />
+        <TechConsultantBot />
         <Footer />
       </body>
     </html>

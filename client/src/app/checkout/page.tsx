@@ -19,6 +19,8 @@ import {
 import { useCartStore } from '@/store/cart-store';
 import { useAuthStore } from '@/store/auth-store';
 import { useCurrencyStore } from '@/store/currency-store';
+import { useAdminOrderStore } from '@/store/admin-order-store';
+import { useAdminProductStore } from '@/store/admin-product-store';
 import { formatPrice } from '@/lib/formatters';
 import { orderService } from '@/services/order.service';
 
@@ -27,6 +29,8 @@ export default function CheckoutPage() {
   const { cart, clearCart } = useCartStore();
   const { user } = useAuthStore();
   const { currency } = useCurrencyStore();
+  const { addOrder } = useAdminOrderStore();
+  const { decreaseStock } = useAdminProductStore();
 
   // Contact & Shipping Form
   const [email, setEmail] = useState(user?.email || '');
@@ -80,14 +84,47 @@ export default function CheckoutPage() {
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !firstName || !lastName || !address || !phone) {
-      setError('Please fill in all required shipping and contact details.');
+      setError('Vui lòng điền đầy đủ thông tin giao hàng và liên hệ.');
       return;
     }
 
     setSubmitting(true);
     setError(null);
 
-    const generatedOrderCode = `MB-${Date.now().toString().slice(-6)}`;
+    const randomDigits = Math.floor(10000 + Math.random() * 90000);
+    const generatedOrderCode = `TITAN-WEB-${randomDigits}`;
+
+    // 1. Save to Centralized Admin Order Store
+    addOrder({
+      orderCode: generatedOrderCode,
+      recipientName: `${firstName} ${lastName}`,
+      recipientPhone: phone,
+      shippingAddress: `${address}, ${apartment ? apartment + ', ' : ''}${city} ${postalCode}`,
+      notes: `Email: ${email} | Thanh toán: ${paymentMethod}${discountApplied ? ' | Coupon: BEAST10 (-10%)' : ''}`,
+      totalAmount: cart.totalPrice,
+      shippingFee,
+      discountAmount,
+      finalAmount: finalTotal,
+      paymentMethod: paymentMethod === 'CARD' ? 'VNPAY' : paymentMethod === 'TRANSFER' ? 'BANK_TRANSFER' : 'COD',
+      paymentStatus: paymentMethod === 'TRANSFER' ? 'COMPLETED' : 'PENDING',
+      orderStatus: 'PENDING',
+      source: 'CHECKOUT',
+      items: cart.items.map((i) => ({
+        id: `item-${Date.now()}-${i.id}`,
+        productId: i.productId,
+        productName: i.productName,
+        variantName: i.variantName,
+        price: i.price,
+        quantity: i.quantity,
+        subtotal: i.subtotal,
+        imageUrl: i.imageUrl,
+      })),
+    });
+
+    // 2. Deduct inventory in Admin Product Store
+    cart.items.forEach((item) => {
+      decreaseStock(item.productId, item.quantity);
+    });
 
     try {
       await orderService.checkout({
@@ -109,17 +146,17 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen bg-neutral-50 text-neutral-900 pb-16">
       {/* Top Header */}
-      <div className="bg-white border-b border-neutral-200 py-4 px-6 sm:px-12">
+      <div className="bg-slate-950 border-b border-cyan-500/20 py-4 px-6 sm:px-12">
         <div className="max-w-[1920px] mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <span className="font-black text-2xl tracking-tighter uppercase text-black">BEAST</span>
-            <span className="text-[10px] font-black uppercase tracking-widest px-1.5 py-0.5 bg-black text-white">
+            <span className="font-black text-2xl tracking-tighter uppercase text-white">TITAN<span className="text-cyan-400">TECH</span></span>
+            <span className="text-[10px] font-black uppercase tracking-widest px-1.5 py-0.5 bg-cyan-400 text-slate-950 rounded">
               CHECKOUT
             </span>
           </Link>
-          <div className="flex items-center gap-1 text-xs text-neutral-500 font-bold">
-            <Lock className="w-3.5 h-3.5 text-green-600" />
-            <span>256-bit Encrypted Checkout</span>
+          <div className="flex items-center gap-1.5 text-xs text-slate-300 font-bold">
+            <Lock className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Thanh Toán Bảo Mật 256-bit SSL</span>
           </div>
         </div>
       </div>
