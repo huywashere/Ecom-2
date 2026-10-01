@@ -7,15 +7,16 @@ import ProductCard from '@/components/product/ProductCard';
 import { DEMO_PRODUCTS } from '@/lib/demo-data';
 
 const TABS = [
-  { id: 'HALLOWEEN', label: 'HALLOWEEN', categorySlug: 'feastables' },
-  { id: 'GLOW', label: 'GLOW-IN-THE-DARK', categorySlug: 'school-office' },
-  { id: 'FEASTABLES', label: 'FEASTABLES', categorySlug: 'feastables' },
-  { id: 'FOOTBALL', label: 'FOOTBALL', categorySlug: 'beast-athletics-football' },
-  { id: 'ATHLETICS', label: 'ATHLETICS', categorySlug: 'beast-athletics' },
+  { id: 'LAPTOPS', label: 'LAPTOPS & MAC', categorySlug: 'laptops' },
+  { id: 'GAMING_PC', label: 'GAMING RIGS', categorySlug: 'gaming-pc' },
+  { id: 'MONITORS', label: 'MÀN HÌNH OLED', categorySlug: 'monitors' },
+  { id: 'KEYBOARDS', label: 'BÀN PHÍM CƠ', categorySlug: 'keyboards' },
+  { id: 'MICE', label: 'CHUỘT ESPORTS', categorySlug: 'mice' },
+  { id: 'AUDIO', label: 'HI-END AUDIO', categorySlug: 'audio' },
 ];
 
 export default function BringOnTheChill() {
-  const [activeTab, setActiveTab] = useState('FOOTBALL');
+  const [activeTab, setActiveTab] = useState('LAPTOPS');
 
   const activeCategory = TABS.find((t) => t.id === activeTab)?.categorySlug;
   const filteredProducts = DEMO_PRODUCTS.filter((p) => p.categorySlug === activeCategory).slice(0, 4);
@@ -26,10 +27,10 @@ export default function BringOnTheChill() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
         <div>
           <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-black">
-            Bring On The Chill
+            Khám Phá Kho Vũ Khí Công Nghệ
           </h2>
           <p className="text-sm font-semibold text-neutral-500 mt-1">
-            Gear up for fall adventures with the coolest arrivals of the season.
+            Thiết bị máy tính, phần cứng flagship và phụ kiện thi đấu đỉnh cao thế hệ mới nhất.
           </p>
         </div>
 
@@ -37,7 +38,7 @@ export default function BringOnTheChill() {
           href="/products"
           className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-black hover:text-[#00B2FE] transition shrink-0"
         >
-          Shop All Collections <ArrowRight className="w-3.5 h-3.5" />
+          Xem Tất Cả Danh Mục <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
 

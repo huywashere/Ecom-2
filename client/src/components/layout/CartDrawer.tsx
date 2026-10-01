@@ -26,8 +26,8 @@ export default function CartDrawer() {
   if (!isOpen) return null;
 
   // Thresholds in USD
-  const FREE_SHIPPING_THRESHOLD = 75;
-  const FREE_GIFT_THRESHOLD = 100;
+  const FREE_SHIPPING_THRESHOLD = 100;
+  const FREE_GIFT_THRESHOLD = 250;
 
   const currentTotal = cart.totalPrice;
   const shippingRemaining = Math.max(0, FREE_SHIPPING_THRESHOLD - currentTotal);
@@ -50,7 +50,7 @@ export default function CartDrawer() {
             <div className="flex items-center gap-2">
               <ShoppingBag className="w-5 h-5 text-black" />
               <h2 className="text-base font-black uppercase tracking-tight text-black">
-                Your Cart ({cart.totalItems})
+                Giỏ Hàng ({cart.totalItems})
               </h2>
             </div>
             <button
@@ -62,20 +62,20 @@ export default function CartDrawer() {
             </button>
           </div>
 
-          {/* MrBeast Free Shipping & Free Gift Progress Bar */}
+          {/* TITAN Free Shipping & Free Tech Gift Progress Bar */}
           <div className="p-4 bg-neutral-100/70 border-b border-neutral-200">
             <div className="text-xs font-black uppercase tracking-tight mb-2 text-center text-neutral-800">
               {currentTotal >= FREE_GIFT_THRESHOLD ? (
                 <span className="text-[#FF007A] flex items-center justify-center gap-1.5">
-                  <Gift className="w-4 h-4" /> UNLOCKED FREE SHIPPING & FREE CAMO SOCKS!
+                  <Gift className="w-4 h-4" /> ĐÃ MỞ KHÓA FREE SHIP & LÓT CHUỘT TITAN PRO!
                 </span>
               ) : currentTotal >= FREE_SHIPPING_THRESHOLD ? (
                 <span className="text-[#00B2FE] flex items-center justify-center gap-1.5">
-                  <Truck className="w-4 h-4" /> UNLOCKED FREE SHIPPING! Add {formatPrice(giftRemaining, currency)} for FREE SOCKS!
+                  <Truck className="w-4 h-4" /> ĐÃ MỞ KHÓA FREE SHIP! Thêm {formatPrice(giftRemaining, currency)} nhận Lót Chuột Pro!
                 </span>
               ) : (
                 <span>
-                  You&apos;re <strong className="text-black font-extrabold">{formatPrice(shippingRemaining, currency)}</strong> away from <strong className="text-[#00B2FE]">FREE SHIPPING</strong>!
+                  Thêm <strong className="text-black font-extrabold">{formatPrice(shippingRemaining, currency)}</strong> để nhận <strong className="text-[#00B2FE]">FREE SHIPPING</strong>!
                 </span>
               )}
             </div>
@@ -88,8 +88,8 @@ export default function CartDrawer() {
               />
             </div>
             <div className="flex justify-between items-center text-[10px] font-black uppercase text-neutral-500 mt-1.5">
-              <span>$75 FREE SHIP</span>
-              <span>$100 FREE SOCKS</span>
+              <span>$100 FREE SHIP</span>
+              <span>$250 PRO MOUSEPAD</span>
             </div>
           </div>
 
@@ -101,16 +101,16 @@ export default function CartDrawer() {
                   <ShoppingBag className="w-8 h-8" />
                 </div>
                 <div>
-                  <h3 className="text-base font-black uppercase text-black">Your Cart is Empty</h3>
+                  <h3 className="text-base font-black uppercase text-black">Giỏ Hàng Đang Trống</h3>
                   <p className="text-xs text-neutral-500 mt-1 max-w-xs">
-                    Explore the newest MrBeast Football drop, tees, and Feastables chocolate!
+                    Khám phá ngay MacBook Pro M3, Custom RTX 4090 Rigs, và Màn hình OLED đỉnh cao!
                   </p>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="px-6 py-3 bg-black hover:bg-neutral-800 text-white font-black uppercase text-xs tracking-wider transition"
                 >
-                  Shop Best Sellers
+                  Xem Sản Phẩm Bán Chạy
                 </button>
               </div>
             ) : (
@@ -192,24 +192,24 @@ export default function CartDrawer() {
                   </div>
                 ))}
 
-                {/* Free Socks Bonus Card if unlocked */}
+                {/* Free Tech Mousepad Bonus Card if unlocked */}
                 {currentTotal >= FREE_GIFT_THRESHOLD && (
                   <div className="mt-4 p-3 bg-neutral-50 border border-neutral-200 rounded flex items-center gap-3">
                     <div className="w-12 h-12 relative bg-neutral-200 rounded overflow-hidden shrink-0">
                       <Image
-                        src="https://mrbeast.store/cdn/shop/files/GWP-CamoSocks.png?v=1789496820&width=120"
-                        alt="MrBeast Camo Socks"
+                        src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=200&auto=format&fit=crop&q=80"
+                        alt="TITAN Pro Gaming Mousepad"
                         fill
-                        className="object-contain p-1"
+                        className="object-cover"
                         sizes="48px"
                       />
                     </div>
                     <div className="flex-1 min-w-0">
                       <span className="text-[10px] font-black uppercase text-[#FF007A] bg-pink-100 px-1.5 py-0.5 rounded">
-                        FREE GIFT
+                        QUÀ TẶNG ĐỘC QUYỀN
                       </span>
-                      <p className="text-xs font-black text-black uppercase truncate mt-0.5">MrBeast Camo Socks</p>
-                      <p className="text-xs font-bold text-green-600">FREE ($0.00)</p>
+                      <p className="text-xs font-black text-black uppercase truncate mt-0.5">Lót Chuột TITAN Pro Speed (900x400mm)</p>
+                      <p className="text-xs font-bold text-green-600">MIỄN PHÍ (Trị giá $35.00)</p>
                     </div>
                   </div>
                 )}

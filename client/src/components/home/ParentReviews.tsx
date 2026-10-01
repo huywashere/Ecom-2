@@ -5,22 +5,22 @@ import { Star, CheckCircle } from 'lucide-react';
 
 const REVIEWS = [
   {
-    title: 'Sweat joggers are beautiful!',
-    quote: 'The fabric is nice and thick, and the logo quality is excellent. The fabric held up perfectly, no bobbling at all and the color has stayed true over time. Definitely worth it!',
-    author: 'Jacqueline C.',
-    badge: 'Verified Buyer',
+    title: 'Cỗ máy RTX 4090 tản nước êm không tưởng!',
+    quote: 'Mình làm đồ họa 3D Blender và Unreal Engine 5, dàn máy TITAN BEAST cân mượt mọi cảnh phức tạp. Nhiệt độ render liên tục 8 tiếng chỉ quanh 52°C, đường ống nước cứng đi dây cực kỳ thẩm mỹ.',
+    author: 'Hoàng Nam K.',
+    badge: 'Verified Buyer • 3D Artist',
   },
   {
-    title: 'My kid was so excited!',
-    quote: 'My kiddo loves Mr.Beast and was so stoked when he opened up his hoodie. Shipping was timely and the quality was worth it.',
-    author: 'Christina H.',
-    badge: 'Verified Buyer',
+    title: 'MacBook Pro M3 Max chuẩn Apple chính hãng!',
+    quote: 'Giao siêu tốc 2 giờ nội thành nguyên seal hộp. Máy kích hoạt bảo hành điện tử chính hãng Apple ngay lập tức. Màn hình Liquid Retina XDR chuẩn màu 100% giúp mình tự tin xuất file in ấn và thiết kế.',
+    author: 'Minh Trang N.',
+    badge: 'Verified Buyer • Senior Designer',
   },
   {
-    title: '8 year old boy approved!!',
-    quote: 'Very good quality and has been washed and used daily for my son, he loves it! He is 8 so it takes a beating at school and it’s held up extremely well!',
-    author: 'Raimey B.',
-    badge: 'Verified Buyer',
+    title: 'Bàn phím Keychron gõ đầm, âm thocky cực mê!',
+    quote: 'Khung nhôm CNC nguyên khối chắc nịch, gõ switch được lube sẵn rất êm và mượt. Kết nối không dây Bluetooth chuyển đổi giữa MacBook và PC gaming mượt mà trong nháy mắt. 10/10!',
+    author: 'Tuấn Kiệt Đ.',
+    badge: 'Verified Buyer • Developer',
   },
 ];
 
@@ -30,7 +30,7 @@ export default function ParentReviews() {
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
         <p className="text-xs font-black uppercase tracking-widest text-[#FF007A]">
-          LOVED BY PARENTS
+          VERIFIED CREATOR & GAMER REVIEWS
         </p>
 
         <div className="flex items-center justify-center gap-1.5 py-1">
@@ -41,11 +41,11 @@ export default function ParentReviews() {
         </div>
 
         <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-black">
-          Trusted by Parents Worldwide
+          Được Tin Tưởng Bởi Hơn 25.000 Creator & Gamer
         </h2>
 
         <p className="text-xs sm:text-sm font-semibold text-neutral-500">
-          With over 15,000 5-star reviews, MrBeast merch is engineered for real life and all-day comfort.
+          Hơn 25.000 đánh giá 5 sao từ cộng đồng sáng tạo nội dung, lập trình viên và game thủ chuyên nghiệp trên toàn quốc.
         </p>
       </div>
 

@@ -34,14 +34,14 @@ export default function Navbar() {
   }, [pathname]);
 
   const subNavLinks = [
-    { label: 'New Arrivals', href: '/products?category=new' },
-    { label: 'Youth Apparel', href: '/products?category=youth' },
-    { label: 'Adult Apparel', href: '/products?category=adults' },
-    { label: 'Sports & Fitness', href: '/products?category=beast-athletics' },
-    { label: 'School & Office', href: '/products?category=school-office' },
-    { label: 'Toys', href: '/products?category=mrbeast-lab' },
-    { label: 'Book', href: '/products/the-most-dangerous-games-book' },
-    { label: 'Feastables', href: '/products?category=feastables' },
+    { label: 'Laptops & Mac', href: '/products?category=laptops' },
+    { label: 'Custom Gaming PC', href: '/products?category=gaming-pc' },
+    { label: 'Màn Hình OLED', href: '/products?category=monitors' },
+    { label: 'Bàn Phím Cơ', href: '/products?category=keyboards' },
+    { label: 'Chuột Gaming', href: '/products?category=mice' },
+    { label: 'Tai Nghe Hi-End', href: '/products?category=audio' },
+    { label: 'Linh Kiện PC', href: '/products?category=components' },
+    { label: 'Điện Thoại Flagship', href: '/products?category=smartphones' },
   ];
 
   const currencies: CurrencyCode[] = ['USD', 'VND', 'EUR', 'GBP'];
@@ -52,13 +52,13 @@ export default function Navbar() {
       <div className="bg-[#EAEAEA] text-black text-[11px] sm:text-xs font-bold uppercase tracking-wider py-1.5 px-4 border-b border-neutral-200">
         <div className="max-w-[1920px] mx-auto flex items-center justify-between">
           <div className="hidden sm:flex items-center gap-4 text-neutral-600 font-semibold text-[11px]">
-            <span>1% DONATED TO CHARITY</span>
+            <span>100% CHÍNH HÃNG VAT</span>
             <span>•</span>
-            <span>30-DAY RETURNS</span>
+            <span>BẢO HÀNH 12-36 THÁNG</span>
           </div>
 
           <div className="flex-1 text-center font-black">
-            Free Shipping on Orders over $75
+            MIỄN PHÍ GIAO HÀNG HỎA TỐC CHO ĐƠN TỪ $75
           </div>
 
           {/* Currency Switcher */}
@@ -115,44 +115,40 @@ export default function Navbar() {
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
 
-            {/* MrBeast BEAST Wordmark Logo */}
+            {/* TITAN TECH Wordmark Logo */}
             <Link href="/" className="flex items-center gap-2 group">
               <span className="font-black text-2xl sm:text-3xl tracking-tighter uppercase text-black group-hover:text-[#00B2FE] transition-colors">
-                BEAST
+                TITAN
               </span>
               <span className="text-[10px] font-black uppercase tracking-widest px-1.5 py-0.5 bg-black text-white rounded-none">
-                STORE
+                TECH
               </span>
             </Link>
 
-            {/* Center Pill Navigation: SHOP / LEARN / WATCH */}
+            {/* Center Pill Navigation: SẢN PHẨM / CUSTOM RIGS / BẢO HÀNH */}
             <nav className="hidden lg:flex items-center gap-1.5">
               <Link
                 href="/products"
                 className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition ${
-                  pathname.startsWith('/products') || pathname === '/'
+                  pathname.startsWith('/products') && !pathname.includes('gaming-pc')
                     ? 'bg-neutral-200 text-black'
                     : 'text-neutral-700 hover:bg-neutral-100'
                 }`}
               >
-                SHOP
+                SẢN PHẨM
               </Link>
-              <a
-                href="https://www.beastphilanthropy.org"
-                target="_blank"
-                rel="noreferrer"
+              <Link
+                href="/products?category=gaming-pc"
                 className="px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider text-neutral-700 hover:bg-neutral-100 transition"
               >
-                LEARN
-              </a>
-              <a
-                href="https://www.youtube.com/@MrBeast"
-                target="_blank"
-                rel="noreferrer"
+                CUSTOM RIGS
+              </Link>
+              <Link
+                href="/policies/shipping-policy"
                 className="px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider text-neutral-700 hover:bg-neutral-100 transition"
               >
-                WATCH
-              </a>
+                BẢO HÀNH & CARE
+              </Link>
             </nav>
 
             {/* Right Action Icons: Search / User / Cart */}
@@ -224,28 +220,24 @@ export default function Navbar() {
           </div>
 
           <div className="border-t border-neutral-200 pt-4 flex flex-col gap-2">
-            <span className="text-xs font-black uppercase text-neutral-400 tracking-wider">Explore</span>
-            <a
-              href="https://www.beastphilanthropy.org"
-              target="_blank"
-              rel="noreferrer"
+            <span className="text-xs font-black uppercase text-neutral-400 tracking-wider">Khám Phá Thêm</span>
+            <Link
+              href="/products?category=gaming-pc"
               className="py-2 px-3 text-sm font-black uppercase text-black hover:bg-neutral-100 rounded transition"
             >
-              LEARN (Philanthropy)
-            </a>
-            <a
-              href="https://www.youtube.com/@MrBeast"
-              target="_blank"
-              rel="noreferrer"
+              CUSTOM RIGS BATTLESTATION
+            </Link>
+            <Link
+              href="/policies/shipping-policy"
               className="py-2 px-3 text-sm font-black uppercase text-black hover:bg-neutral-100 rounded transition"
             >
-              WATCH (YouTube)
-            </a>
+              CHÍNH SÁCH BẢO HÀNH 36 THÁNG
+            </Link>
             <Link
               href="/login"
               className="py-2 px-3 text-sm font-black uppercase text-black hover:bg-neutral-100 rounded transition"
             >
-              My Beast Army Account
+              Tài Khoản TITAN VIP Member
             </Link>
           </div>
         </div>

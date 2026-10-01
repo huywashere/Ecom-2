@@ -6,8 +6,8 @@ import CartDrawer from '@/components/layout/CartDrawer';
 import PredictiveSearch from '@/components/layout/PredictiveSearch';
 
 export const metadata: Metadata = {
-  title: 'MrBeast.Store | The ONLY Official Merch Store for MrBeast in the world',
-  description: 'Shop official MrBeast merch, hoodies, tees, Feastables chocolate, Beast Athletics gear, and toys. 100% authentic, fast worldwide shipping.',
+  title: 'TITAN TECH | Siêu Thị Máy Tính, Laptop & Đồ Điện Tử Cao Cấp Flagship',
+  description: 'Đại lý phân phối ủy quyền Apple, NVIDIA, ASUS ROG, Sony, Razer, Logitech G, Keychron. Chuyên máy tính workstation, custom liquid-cooled PC rigs, laptop gaming và phụ kiện cao cấp.',
   icons: {
     icon: '/favicon.ico',
   },

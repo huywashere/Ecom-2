@@ -97,21 +97,25 @@ function ProductsContent() {
   };
 
   const currentCategoryTitle =
-    selectedCategory === 'youth'
-      ? 'Youth Apparel'
-      : selectedCategory === 'adults'
-      ? 'Adult Apparel'
-      : selectedCategory === 'beast-athletics-football'
-      ? 'Football Collection'
-      : selectedCategory === 'beast-athletics'
-      ? 'Sports & Fitness'
-      : selectedCategory === 'feastables'
-      ? 'Feastables Chocolates & Snacks'
-      : selectedCategory === 'mrbeast-lab'
-      ? 'MrBeast Lab & Toys'
+    selectedCategory === 'laptops'
+      ? 'Laptops & MacBooks Flagship'
+      : selectedCategory === 'gaming-pc'
+      ? 'Custom Gaming PCs & Workstations'
+      : selectedCategory === 'monitors'
+      ? 'Màn Hình Gaming & OLED 240Hz'
+      : selectedCategory === 'keyboards'
+      ? 'Bàn Phím Cơ Custom Cao Cấp'
+      : selectedCategory === 'mice'
+      ? 'Chuột Gaming & Gears Esports'
+      : selectedCategory === 'audio'
+      ? 'Tai Nghe & Âm Thanh Hi-End'
+      : selectedCategory === 'components'
+      ? 'Linh Kiện Máy Tính & GPUs'
+      : selectedCategory === 'smartphones'
+      ? 'Điện Thoại Flagship & Handhelds'
       : selectedCategory === 'new'
-      ? 'New Arrivals'
-      : 'All Official Merchandise';
+      ? 'Sản Phẩm Công Nghệ Mới Nhất'
+      : 'Tất Cả Sản Phẩm Máy Tính & Điện Tử';
 
   return (
     <div className="max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12 py-8 sm:py-12">
@@ -121,7 +125,7 @@ function ProductsContent() {
           {currentCategoryTitle}
         </h1>
         <p className="text-xs sm:text-sm font-semibold text-neutral-500 max-w-xl">
-          100% authentic, high performance athletic merch, Feastables chocolate, and limited edition Beast apparel.
+          100% hàng chính hãng full VAT, bảo hành 12-36 tháng chính hãng, miễn phí vận chuyển hỏa tốc cho đơn từ $75.
         </p>
       </div>
 

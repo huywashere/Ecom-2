@@ -18,16 +18,36 @@ interface ProductCardProps {
 export default function ProductCard({ product, secondaryImage, badge }: ProductCardProps) {
   const { addItem } = useCartStore();
   const { currency } = useCurrencyStore();
-  const [isHovered, setIsHovered] = useState(false);
-  const [selectedSize, setSelectedSize] = useState<string>('YM');
+  const getCategoryOptions = () => {
+    switch (product.categorySlug) {
+      case 'laptops':
+        return ['1TB SSD', '2TB SSD', '4TB SSD'];
+      case 'gaming-pc':
+        return ['i9 / RTX 4090', 'R9 / RTX 4090'];
+      case 'monitors':
+        return ['240Hz OLED', '360Hz QD-OLED'];
+      case 'keyboards':
+        return ['Red Switch', 'Brown Switch', 'Banana Switch'];
+      case 'mice':
+        return ['Matte Black', 'Pure White', 'Magenta'];
+      case 'audio':
+        return ['Midnight Black', 'Platinum Silver'];
+      case 'smartphones':
+        return ['256GB', '512GB', '1TB'];
+      case 'components':
+        return ['Founders Edition', 'OC Hybrid'];
+      default:
+        return ['Standard', 'Pro Edition'];
+    }
+  };
+
+  const defaultOptions = getCategoryOptions();
+  const [selectedOption, setSelectedOption] = useState<string>(defaultOptions[0]);
   const [isAdded, setIsAdded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const isSoldOut = product.totalStock === 0;
   const isSale = product.originalPrice && product.originalPrice > product.minPrice;
-
-  const defaultSizes = product.categorySlug === 'youth'
-    ? ['YS (6/7)', 'YM (8/9)', 'YL (10/11)', 'YXL (12/13)']
-    : ['SM', 'MD', 'LG', 'XL', '2XL'];
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -38,8 +58,8 @@ export default function ProductCard({ product, secondaryImage, badge }: ProductC
       product,
       {
         id: product.id * 100 + 1,
-        sku: `${product.slug}-${selectedSize}`,
-        variantName: `Size: ${selectedSize}`,
+        sku: `${product.slug}-${selectedOption.replace(/\s+/g, '-').toLowerCase()}`,
+        variantName: selectedOption,
         price: product.minPrice,
         originalPrice: product.originalPrice,
         stockQuantity: product.totalStock || 20,
@@ -125,25 +145,25 @@ export default function ProductCard({ product, secondaryImage, badge }: ProductC
             )}
           </div>
 
-          {/* Quick Size Select Swatches */}
+          {/* Quick Option Select Swatches */}
           {!isSoldOut && (
             <div className="flex items-center gap-1 overflow-x-auto py-1 no-scrollbar mb-2">
-              {defaultSizes.map((size) => (
+              {defaultOptions.map((opt) => (
                 <button
-                  key={size}
+                  key={opt}
                   type="button"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    setSelectedSize(size);
+                    setSelectedOption(opt);
                   }}
                   className={`px-1.5 py-0.5 text-[10px] font-black uppercase rounded border transition shrink-0 ${
-                    selectedSize === size
+                    selectedOption === opt
                       ? 'bg-black text-white border-black'
                       : 'bg-neutral-50 text-neutral-700 border-neutral-200 hover:border-black'
                   }`}
                 >
-                  {size}
+                  {opt}
                 </button>
               ))}
             </div>

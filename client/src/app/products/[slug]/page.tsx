@@ -113,11 +113,62 @@ export default function ProductDetailPage() {
   const currentOriginalPrice = selectedVariant?.originalPrice ?? product.originalPrice;
   const isOutOfStock: boolean = Boolean(product.totalStock === 0 || (selectedVariant && selectedVariant.stockQuantity <= 0));
 
-  const galleryImages = [
-    product.thumbnail,
-    'https://mrbeast.store/cdn/shop/files/B2S_NoiseTee_BLK_BACK.jpg?v=1785206597&width=800',
-    'https://cdn.shopify.com/s/files/1/0016/1975/5059/files/Particle_Front_1.jpg?v=1778269853&width=800',
-  ].filter(Boolean) as string[];
+  const getProductGallery = (prod: ProductDetail) => {
+    const list = [prod.thumbnail];
+    if (prod.categorySlug === 'laptops') {
+      list.push(
+        'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=1000&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=1000&auto=format&fit=crop&q=80'
+      );
+    } else if (prod.categorySlug === 'gaming-pc') {
+      list.push(
+        'https://images.unsplash.com/photo-1624705002806-5d72df19c3ad?w=1000&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=1000&auto=format&fit=crop&q=80'
+      );
+    } else if (prod.categorySlug === 'monitors') {
+      list.push(
+        'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1000&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1547119957-637f8679db1e?w=1000&auto=format&fit=crop&q=80'
+      );
+    } else if (prod.categorySlug === 'keyboards') {
+      list.push(
+        'https://images.unsplash.com/photo-1595225476474-87563907a212?w=1000&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=1000&auto=format&fit=crop&q=80'
+      );
+    } else if (prod.categorySlug === 'mice') {
+      list.push(
+        'https://images.unsplash.com/photo-1626218174358-7769486c4b79?w=1000&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=1000&auto=format&fit=crop&q=80'
+      );
+    } else if (prod.categorySlug === 'audio') {
+      list.push(
+        'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=1000&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=1000&auto=format&fit=crop&q=80'
+      );
+    } else if (prod.categorySlug === 'components') {
+      list.push(
+        'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=1000&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1562976540-1502c2145186?w=1000&auto=format&fit=crop&q=80'
+      );
+    } else {
+      list.push(
+        'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1000&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&auto=format&fit=crop&q=80'
+      );
+    }
+    return list.filter(Boolean) as string[];
+  };
+
+  const galleryImages = getProductGallery(product);
+
+  let parsedSpecs: Record<string, string> = {};
+  try {
+    if (product.specifications) {
+      parsedSpecs = JSON.parse(product.specifications);
+    }
+  } catch {
+    parsedSpecs = {};
+  }
 
   const handleAddToCart = () => {
     if (!selectedVariant || isOutOfStock) return;
@@ -139,9 +190,9 @@ export default function ProductDetailPage() {
     <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
       {/* 1. Breadcrumbs */}
       <nav className="flex items-center gap-1.5 text-xs font-bold uppercase text-neutral-400 mb-6">
-        <Link href="/" className="hover:text-black transition">Home</Link>
+        <Link href="/" className="hover:text-black transition">Trang Chủ</Link>
         <ChevronRight className="w-3.5 h-3.5" />
-        <Link href="/products" className="hover:text-black transition">Collections</Link>
+        <Link href="/products" className="hover:text-black transition">Bộ Sưu Tập</Link>
         <ChevronRight className="w-3.5 h-3.5" />
         <span className="text-black truncate max-w-xs">{product.name}</span>
       </nav>
@@ -183,7 +234,7 @@ export default function ProductDetailPage() {
           {/* Brand & Title */}
           <div>
             <span className="text-xs font-black uppercase tracking-widest text-[#00B2FE]">
-              {product.brandName || 'MrBeast Official'}
+              {product.brandName || 'TITAN TECH'}
             </span>
             <h1 className="text-2xl sm:text-3xl font-black uppercase text-black tracking-tight mt-1 leading-tight">
               {product.name}
@@ -203,14 +254,14 @@ export default function ProductDetailPage() {
             <span className={`px-2.5 py-0.5 text-[10px] font-black uppercase rounded ${
               isOutOfStock ? 'bg-neutral-200 text-neutral-600' : 'bg-green-100 text-green-800'
             }`}>
-              {isOutOfStock ? 'OUT OF STOCK' : 'IN STOCK'}
+              {isOutOfStock ? 'HẾT HÀNG' : 'CÒN HÀNG SẴN'}
             </span>
           </div>
 
           {/* Value Prop Banner */}
           <div className="p-3 bg-neutral-50 border border-neutral-200 rounded flex items-center gap-3 text-xs font-bold text-neutral-700">
             <Truck className="w-4 h-4 text-[#00B2FE] shrink-0" />
-            <span>Orders over $75 qualify for <strong>FREE SHIPPING</strong>!</span>
+            <span>Đơn hàng từ $75 nhận <strong>MIỄN PHÍ VẬN CHUYỂN HỎA TỐC 2 GIỜ</strong>!</span>
           </div>
 
           {/* Variant Selector */}
@@ -218,14 +269,14 @@ export default function ProductDetailPage() {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-black uppercase tracking-wider text-black">
-                  Select Size / Style: <span className="font-bold text-neutral-600">{selectedVariant?.variantName}</span>
+                  Chọn Cấu Hình / Phiên Bản: <span className="font-bold text-neutral-600">{selectedVariant?.variantName}</span>
                 </span>
                 <button
                   type="button"
                   onClick={() => setSizeChartOpen(true)}
                   className="flex items-center gap-1 text-xs font-bold text-black hover:underline"
                 >
-                  <Ruler className="w-3.5 h-3.5" /> Size Guide
+                  <Ruler className="w-3.5 h-3.5" /> Thông Số Chi Tiết
                 </button>
               </div>
 
@@ -252,7 +303,7 @@ export default function ProductDetailPage() {
 
           {/* Quantity Stepper */}
           <div className="space-y-2">
-            <span className="text-xs font-black uppercase tracking-wider text-black">Quantity</span>
+            <span className="text-xs font-black uppercase tracking-wider text-black">Số Lượng</span>
             <div className="flex items-center gap-4">
               <div className="flex items-center border border-neutral-300 rounded">
                 <button
@@ -288,14 +339,14 @@ export default function ProductDetailPage() {
               }`}
             >
               {isOutOfStock ? (
-                'Sold Out'
+                'Hết Hàng'
               ) : addedSuccess ? (
                 <>
-                  <Check className="w-4 h-4" /> Added To Cart
+                  <Check className="w-4 h-4" /> Đã Thêm Vào Giỏ Hàng
                 </>
               ) : (
                 <>
-                  <ShoppingBag className="w-4 h-4" /> Add To Cart
+                  <ShoppingBag className="w-4 h-4" /> Thêm Vào Giỏ Hàng
                 </>
               )}
             </button>
@@ -305,7 +356,7 @@ export default function ProductDetailPage() {
                 onClick={handleBuyNow}
                 className="w-full py-4 bg-[#00B2FE] hover:bg-[#009ce0] text-black font-black uppercase text-xs tracking-widest transition flex items-center justify-center gap-2"
               >
-                <Zap className="w-4 h-4 fill-black" /> Buy It Now
+                <Zap className="w-4 h-4 fill-black" /> Mua Ngay Bây Giờ
               </button>
             )}
           </div>
@@ -318,7 +369,7 @@ export default function ProductDetailPage() {
                 onClick={() => toggleAccordion('description')}
                 className="w-full py-3.5 flex items-center justify-between text-xs font-black uppercase text-black"
               >
-                <span>Description & Fit</span>
+                <span>Mô Tả & Điểm Nhấn Công Nghệ</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${openAccordions.description ? 'rotate-180' : ''}`} />
               </button>
               {openAccordions.description && (
@@ -328,39 +379,48 @@ export default function ProductDetailPage() {
               )}
             </div>
 
-            {/* Shipping & Returns */}
+            {/* Hardware Specs */}
             <div>
               <button
                 onClick={() => toggleAccordion('shipping')}
                 className="w-full py-3.5 flex items-center justify-between text-xs font-black uppercase text-black"
               >
-                <span>Shipping & 30-Day Returns</span>
+                <span>Thông Số Kỹ Thuật (Hardware Specifications)</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${openAccordions.shipping ? 'rotate-180' : ''}`} />
               </button>
               {openAccordions.shipping && (
                 <div className="pb-4 text-xs text-neutral-600 font-medium space-y-2">
-                  <p>• Free standard shipping on all US orders over $75.</p>
-                  <p>• Orders are processed within 24-48 hours from our fulfillment center.</p>
-                  <p>• 30-day hassle-free return window for unworn items with original tags.</p>
+                  {Object.keys(parsedSpecs).length > 0 ? (
+                    <div className="divide-y divide-neutral-100 border border-neutral-200 rounded">
+                      {Object.entries(parsedSpecs).map(([key, val]) => (
+                        <div key={key} className="flex justify-between py-2 px-3 text-xs">
+                          <span className="font-bold text-neutral-800">{key}:</span>
+                          <span className="text-neutral-600 text-right">{val}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p>• Bảo hành chính hãng: {product.warrantyMonths || 24} tháng.</p>
+                  )}
                 </div>
               )}
             </div>
 
-            {/* Fabric Care */}
+            {/* Warranty & Returns */}
             <div>
               <button
                 onClick={() => toggleAccordion('care')}
                 className="w-full py-3.5 flex items-center justify-between text-xs font-black uppercase text-black"
               >
-                <span>Fabric & Care Instructions</span>
+                <span>Chính Sách Bảo Hành & Đổi Mới (12 - 36 Tháng)</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${openAccordions.care ? 'rotate-180' : ''}`} />
               </button>
               {openAccordions.care && (
                 <div className="pb-4 text-xs text-neutral-600 font-medium space-y-1">
-                  <p>• 100% Pre-shrunk cotton</p>
-                  <p>• Machine wash cold inside out with like colors</p>
-                  <p>• Tumble dry low or hang dry to preserve graphic vibrancy</p>
-                  <p>• Do not iron decoration</p>
+                  <p>• 100% Sản phẩm chính hãng phân phối tại thị trường Việt Nam & Quốc Tế.</p>
+                  <p>• 1 đổi 1 trong 30 ngày đầu tiên nếu có lỗi phần cứng hoặc điểm chết màn hình.</p>
+                  <p>• Bảo hành phần cứng chính hãng {product.warrantyMonths || 24} tháng tận nơi hoặc qua trung tâm ủy quyền.</p>
+                  <p>• Hỗ trợ kỹ thuật trực tuyến và cân màu màn hình miễn phí trọn đời sản phẩm.</p>
                 </div>
               )}
             </div>
@@ -368,12 +428,12 @@ export default function ProductDetailPage() {
         </div>
       </div>
 
-      {/* 3. Official Size Chart Modal */}
+      {/* 3. Tech Specs Modal */}
       {sizeChartOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-white max-w-2xl w-full p-6 rounded shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-white max-w-2xl w-full p-6 rounded shadow-2xl relative animate-in fade-in zoom-in-95 duration-200 max-h-[85vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b border-neutral-200 pb-3 mb-4">
-              <h3 className="text-base font-black uppercase text-black">Official MrBeast Sizing Guide</h3>
+              <h3 className="text-base font-black uppercase text-black">Bảng Thông Số Kỹ Thuật Chi Tiết</h3>
               <button
                 onClick={() => setSizeChartOpen(false)}
                 className="p-1 hover:bg-neutral-100 rounded text-neutral-500 hover:text-black transition"
@@ -381,15 +441,18 @@ export default function ProductDetailPage() {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="relative w-full aspect-[4/3] bg-neutral-50 rounded overflow-hidden">
-              <Image
-                src="https://mrbeast.store/cdn/shop/files/mrbeast-size-chart-adult_600x.png?v=13960938186185848989"
-                alt="MrBeast Size Measurement Chart"
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 600px"
-              />
-            </div>
+            {Object.keys(parsedSpecs).length > 0 ? (
+              <div className="divide-y divide-neutral-200 border border-neutral-200 rounded">
+                {Object.entries(parsedSpecs).map(([key, val]) => (
+                  <div key={key} className="flex justify-between py-2.5 px-4 text-xs">
+                    <span className="font-bold text-neutral-800">{key}</span>
+                    <span className="text-neutral-600 font-medium text-right max-w-xs">{val}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-xs text-neutral-500 py-4">Sản phẩm chính hãng với tiêu chuẩn chất lượng cao nhất.</p>
+            )}
           </div>
         </div>
       )}

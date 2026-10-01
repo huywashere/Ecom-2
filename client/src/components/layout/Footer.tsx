@@ -44,7 +44,7 @@ export default function Footer() {
             <div className="pt-2">
               {submitted ? (
                 <div className="p-3.5 bg-neutral-900 border border-green-500 rounded text-green-400 text-xs font-bold flex items-center gap-2">
-                  <Check className="w-4 h-4" /> Thank you for subscribing to MrBeast Store updates!
+                  <Check className="w-4 h-4" /> Cảm ơn bạn đã đăng ký nhận bản tin công nghệ & khuyến mãi từ TITAN TECH!
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 max-w-lg">
@@ -230,24 +230,20 @@ export default function Footer() {
               <nav className={`${companyOpen ? 'block' : 'hidden'} sm:block`}>
                 <ul className="space-y-3 text-xs sm:text-sm font-bold uppercase tracking-tight text-neutral-300">
                   <li>
-                    <a
-                      href="https://www.beastphilanthropy.org"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/policies/shipping-policy"
                       className="hover:text-white hover:underline transition"
                     >
-                      PHILANTHROPY
-                    </a>
+                      BẢO HÀNH CHÍNH HÃNG
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="https://www.youtube.com/@mrbeast"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/products?category=gaming-pc"
                       className="hover:text-white hover:underline transition"
                     >
-                      ABOUT US
-                    </a>
+                      CUSTOM RIGS LAB
+                    </Link>
                   </li>
                   <li>
                     <Link href="/reviews" className="hover:text-white hover:underline transition">
@@ -256,7 +252,7 @@ export default function Footer() {
                   </li>
                   <li>
                     <Link href="/pages/accessibility-policy" className="hover:text-white hover:underline transition">
-                      ACCESSIBILITY STATEMENT
+                      TIÊU CHUẨN KỸ THUẬT
                     </Link>
                   </li>
                   <li>
@@ -298,7 +294,7 @@ export default function Footer() {
 
           {/* Legal Links & Copyright */}
           <div className="flex flex-col lg:flex-row items-center justify-between gap-4 text-[11px] text-neutral-400 font-medium">
-            <p>© 2026, MrBeast.store Powered by Shopify</p>
+            <p>© 2026, TITAN TECH Store. All Rights Reserved. Hệ Thống Máy Tính & Thiết Bị Điện Tử Flagship.</p>
 
             <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
               <li>

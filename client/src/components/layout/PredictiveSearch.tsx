@@ -9,7 +9,7 @@ import { DEMO_PRODUCTS } from '@/lib/demo-data';
 import { useCurrencyStore } from '@/store/currency-store';
 import { formatPrice } from '@/lib/formatters';
 
-const POPULAR_SEARCHES = ['Tees', 'Shorts', 'Football', 'Feastables', 'Bundles', 'Halloween', 'Socks'];
+const POPULAR_SEARCHES = ['MacBook', 'RTX 4090', 'OLED', 'Keychron', 'Gaming PC', 'Sony XM5', 'Razer', 'DDR5'];
 
 export default function PredictiveSearch() {
   const { isOpen, query, setQuery, closeSearch } = useSearchStore();
@@ -45,7 +45,8 @@ export default function PredictiveSearch() {
         (p) =>
           p.name.toLowerCase().includes(query.toLowerCase()) ||
           p.shortDescription?.toLowerCase().includes(query.toLowerCase()) ||
-          p.categoryName?.toLowerCase().includes(query.toLowerCase())
+          p.categoryName?.toLowerCase().includes(query.toLowerCase()) ||
+          p.brandName?.toLowerCase().includes(query.toLowerCase())
       )
     : [];
 
@@ -62,7 +63,7 @@ export default function PredictiveSearch() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search MrBeast merch, apparel, Feastables, toys..."
+              placeholder="Tìm kiếm MacBook, RTX 4090, Màn hình OLED, Bàn phím cơ..."
               className="w-full text-base sm:text-xl font-bold placeholder:text-neutral-400 focus:outline-none bg-transparent"
             />
             {query && (
@@ -102,18 +103,18 @@ export default function PredictiveSearch() {
           <div className="overflow-y-auto max-h-[50vh] py-4">
             {query.trim() === '' ? (
               <div className="text-center py-8 text-neutral-400 text-sm">
-                Type something to search official Beast products...
+                Nhập từ khóa để tìm kiếm máy tính, laptop, linh kiện & đồ điện tử chính hãng...
               </div>
             ) : filteredProducts.length > 0 ? (
               <div className="space-y-4">
                 <div className="flex items-center justify-between text-xs font-black uppercase text-neutral-500">
-                  <span>Products ({filteredProducts.length})</span>
+                  <span>Sản phẩm ({filteredProducts.length})</span>
                   <Link
                     href={`/products?search=${encodeURIComponent(query)}`}
                     onClick={closeSearch}
                     className="text-[#00B2FE] hover:underline flex items-center gap-1 font-bold"
                   >
-                    View All <ArrowRight className="w-3 h-3" />
+                    Xem Tất Cả <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
 
@@ -149,8 +150,8 @@ export default function PredictiveSearch() {
               </div>
             ) : (
               <div className="text-center py-10">
-                <p className="text-sm font-bold text-neutral-700">No products found matching &ldquo;{query}&rdquo;</p>
-                <p className="text-xs text-neutral-400 mt-1">Try searching for tees, hoodies, bundles, or Feastables.</p>
+                <p className="text-sm font-bold text-neutral-700">Không tìm thấy sản phẩm phù hợp với &ldquo;{query}&rdquo;</p>
+                <p className="text-xs text-neutral-400 mt-1">Thử tìm kiếm với: MacBook, RTX 4090, OLED, Keychron, hoặc Sony.</p>
               </div>
             )}
           </div>
