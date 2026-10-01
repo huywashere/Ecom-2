@@ -25,7 +25,7 @@ Swagger UI: `http://localhost:8080/swagger-ui/index.html`
 ### 2. Frontend (Next.js)
 ```bash
 cd client
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 Trang chủ: `http://localhost:3000`
