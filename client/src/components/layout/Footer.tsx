@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Lock, Plus, Minus, Check } from 'lucide-react';
+import PaymentIconsGroup from './PaymentIcons';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -275,21 +276,8 @@ export default function Footer() {
               <span>Secure checkout</span>
             </div>
 
-            {/* Payment Method Icons */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5 opacity-90">
-              <span className="px-2 py-1 bg-white text-black font-black text-[10px] rounded-xs">AMAZON</span>
-              <span className="px-2 py-1 bg-[#0071CE] text-white font-black text-[10px] rounded-xs">AMEX</span>
-              <span className="px-2 py-1 bg-black border border-white text-white font-black text-[10px] rounded-xs">APPLE PAY</span>
-              <span className="px-2 py-1 bg-[#05c0c7] text-white font-black text-[10px] rounded-xs">BIZUM</span>
-              <span className="px-2 py-1 bg-[#3086C8] text-white font-black text-[10px] rounded-xs">DINERS CLUB</span>
-              <span className="px-2 py-1 bg-[#F48120] text-white font-black text-[10px] rounded-xs">DISCOVER</span>
-              <span className="px-2 py-1 bg-white text-black font-black text-[10px] rounded-xs">GOOGLE PAY</span>
-              <span className="px-2 py-1 bg-[#EB001B] text-white font-black text-[10px] rounded-xs">MASTERCARD</span>
-              <span className="px-2 py-1 bg-[#003087] text-white font-black text-[10px] rounded-xs">PAYPAL</span>
-              <span className="px-2 py-1 bg-[#5A31F4] text-white font-black text-[10px] rounded-xs">SHOP PAY</span>
-              <span className="px-2 py-1 bg-[#3D95CE] text-white font-black text-[10px] rounded-xs">VENMO</span>
-              <span className="px-2 py-1 bg-[#142FBD] text-white font-black text-[10px] rounded-xs">VISA</span>
-            </div>
+            {/* Authentic Payment Method Icons */}
+            <PaymentIconsGroup />
           </div>
 
           {/* Legal Links & Copyright */}

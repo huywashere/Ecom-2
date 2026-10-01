@@ -8,22 +8,15 @@ import {
   X,
   Send,
   Bot,
-  User,
   Sparkles,
   ShoppingBag,
   Zap,
   CheckCircle2,
   Package,
-  RotateCcw,
-  ChevronDown,
-  Minimize2,
   ExternalLink,
-  ShieldCheck,
-  Cpu,
-  Laptop,
-  Keyboard,
-  Headphones,
-  Check,
+  ChevronDown,
+  Lock,
+  ArrowRight,
 } from 'lucide-react';
 import { useAdminOrderStore } from '@/store/admin-order-store';
 import { useAdminProductStore } from '@/store/admin-product-store';
@@ -92,11 +85,11 @@ export default function TechConsultantBot() {
   }, [isOpen, messages, isTyping]);
 
   const quickPrompts = [
-    { label: '🖥️ Cấu hình PC RTX 4090', query: 'Tư vấn cấu hình PC gaming cao cấp RTX 4090' },
-    { label: '💻 Laptop MacBook M3 / ROG', query: 'Tư vấn Laptop đồ họa chuyên nghiệp và Gaming mỏng nhẹ' },
-    { label: '⌨️ Bàn phím cơ & Chuột', query: 'Gợi ý bàn phím cơ gõ êm và chuột esports' },
-    { label: '🎧 Tai nghe chống ồn đỉnh cao', query: 'Tìm tai nghe chống ồn tốt nhất' },
-    { label: '📦 Tra cứu đơn hàng', query: 'Tôi muốn kiểm tra tình trạng đơn hàng' },
+    { label: '🖥️ CẤU HÌNH PC RTX 4090', query: 'Tư vấn cấu hình PC gaming cao cấp RTX 4090' },
+    { label: '💻 LAPTOP MACBOOK / ROG', query: 'Tư vấn Laptop đồ họa chuyên nghiệp và Gaming mỏng nhẹ' },
+    { label: '⌨️ BÀN PHÍM CƠ & GEAR', query: 'Gợi ý bàn phím cơ gõ êm và chuột esports' },
+    { label: '🎧 TAI NGHE CHỐNG ỒN', query: 'Tìm tai nghe chống ồn tốt nhất' },
+    { label: '📦 TRA CỨU ĐƠN HÀNG', query: 'Tôi muốn kiểm tra tình trạng đơn hàng' },
   ];
 
   const handleSendMessage = (textToSend?: string) => {
@@ -114,13 +107,11 @@ export default function TechConsultantBot() {
     if (!textToSend) setInputMessage('');
     setIsTyping(true);
 
-    // AI Analysis & Response Engine
     setTimeout(() => {
       const lower = message.toLowerCase();
       let botResponse = '';
       let matchedProducts: Product[] = [];
 
-      // Check for Order tracking query (e.g. TITAN-AI-12345 or user asking for tracking)
       const orderMatch = message.match(/TITAN-[A-Z0-9-]+/i);
       if (orderMatch) {
         const foundOrder = getOrder(orderMatch[0]);
@@ -128,8 +119,8 @@ export default function TechConsultantBot() {
           const statusMap = {
             PENDING: '⏳ Chờ xác nhận',
             CONFIRMED: '✅ Đã xác nhận',
-            PROCESSING: '📦 Đang đóng gói cẩn thận',
-            SHIPPING: '🚚 Đang giao hàng siêu tốc',
+            PROCESSING: '📦 Đang đóng gói',
+            SHIPPING: '🚚 Đang giao hàng',
             DELIVERED: '🎉 Đã giao thành công',
             CANCELLED: '❌ Đã hủy',
           };
@@ -198,7 +189,6 @@ export default function TechConsultantBot() {
   };
 
   const handleAddToCart = (product: Product) => {
-    // Construct dummy variant for quick add
     const variant = {
       id: product.id * 100 + 1,
       sku: `${product.slug}-std`,
@@ -209,7 +199,7 @@ export default function TechConsultantBot() {
       active: true,
     };
     addItem(product, variant, 1);
-    setOrderSuccessToast(`Đã thêm "${product.name.slice(0, 30)}..." vào giỏ hàng!`);
+    setOrderSuccessToast(`Đã thêm "${product.name.slice(0, 25)}..." vào giỏ!`);
     setTimeout(() => setOrderSuccessToast(null), 3000);
   };
 
@@ -228,7 +218,6 @@ export default function TechConsultantBot() {
 
     const totalAmount = checkoutProduct.minPrice * quantity;
 
-    // Dispatch order to Admin Order Store with source: CHATBOT!
     const newOrder = addOrder({
       recipientName: customerName,
       recipientPhone: customerPhone,
@@ -256,14 +245,12 @@ export default function TechConsultantBot() {
       ],
     });
 
-    // Deduct stock in Product Store
     decreaseStock(checkoutProduct.id, quantity);
 
-    // Bot sends congratulatory message inside chat
     const orderSuccessMsg: ChatMessage = {
       id: `bot-order-${Date.now()}`,
       sender: 'bot',
-      text: `🎉 **ĐẶT HÀNG THÀNH CÔNG SIÊU TỐC!**\n\nThông tin đơn hàng của bạn đã được chuyển thẳng về **Hệ Thống Quản Trị Admin**:\n\n• **Mã đơn hàng:** \`${newOrder.orderCode}\`\n• **Khách hàng:** ${customerName} (${customerPhone})\n• **Địa chỉ nhận:** ${customerAddress}\n• **Sản phẩm:** ${checkoutProduct.name} (Số lượng: ${quantity})\n• **Tổng thanh toán:** **${formatPrice(totalAmount, currency)}**\n• **Hình thức:** ${paymentMethod === 'COD' ? 'Thanh toán khi nhận hàng (COD)' : 'Chuyển khoản ngân hàng'}\n\nNhân viên chăm sóc khách hàng của TITAN TECH sẽ gọi điện xác nhận trong vòng **5 - 15 phút** để xuất kho giao hàng ngay!`,
+      text: `🎉 **ĐẶT HÀNG THÀNH CÔNG!**\n\nThông tin đơn hàng đã được chuyển thẳng về **Hệ Thống Quản Trị Admin**:\n\n• **Mã đơn hàng:** \`${newOrder.orderCode}\`\n• **Khách hàng:** ${customerName} (${customerPhone})\n• **Địa chỉ nhận:** ${customerAddress}\n• **Sản phẩm:** ${checkoutProduct.name} (Số lượng: ${quantity})\n• **Tổng thanh toán:** **${formatPrice(totalAmount, currency)}**\n• **Hình thức:** ${paymentMethod === 'COD' ? 'Thanh toán khi nhận hàng (COD)' : 'Chuyển khoản ngân hàng'}\n\nNhân viên chăm sóc khách hàng của TITAN TECH sẽ gọi điện xác nhận trong vòng **5 - 15 phút** để xuất kho giao hàng ngay!`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       orderAction: {
         orderCode: newOrder.orderCode,
@@ -287,68 +274,64 @@ export default function TechConsultantBot() {
     <>
       {/* Toast Notification */}
       {orderSuccessToast && (
-        <div className="fixed top-20 right-6 z-[60] bg-emerald-500 text-slate-950 font-bold px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 border border-emerald-400 animate-bounce">
-          <CheckCircle2 className="w-5 h-5" />
-          <span className="text-xs">{orderSuccessToast}</span>
+        <div className="fixed top-20 right-6 z-[60] bg-black text-white font-black text-xs uppercase px-4 py-3 rounded border-2 border-[#00B2FE] shadow-2xl flex items-center gap-2 animate-bounce">
+          <CheckCircle2 className="w-5 h-5 text-[#00B2FE]" />
+          <span>{orderSuccessToast}</span>
         </div>
       )}
 
-      {/* Floating Action Trigger Button */}
+      {/* Floating Trigger Button - matching Homepage TITAN TECH high-energy theme */}
       {!isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
-          {/* Subtle invitation chip */}
+        <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2">
+          {/* Invitation chip */}
           {!hasOpened && (
-            <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-slate-900/90 text-cyan-300 text-xs font-bold border border-cyan-500/40 shadow-xl backdrop-blur-md animate-pulse">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Cần tư vấn hoặc mua nhanh? Chat với TITAN AI</span>
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-black text-white text-xs font-black uppercase tracking-wider rounded border border-[#00B2FE] shadow-[3px_3px_0px_#00B2FE]">
+              <Sparkles className="w-3.5 h-3.5 text-[#00B2FE]" />
+              <span>Tư Vấn &amp; Mua Nhanh: Chat AI</span>
             </div>
           )}
 
           <button
             onClick={() => setIsOpen(true)}
             aria-label="Open AI Tech Consultant Chat"
-            className="group relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-600 p-[2px] shadow-2xl shadow-cyan-500/40 hover:scale-105 active:scale-95 transition-all duration-300"
+            className="group relative w-14 h-14 rounded-full bg-black border-2 border-[#00B2FE] shadow-[0_0_15px_rgba(0,178,254,0.4)] hover:shadow-[0_0_25px_rgba(0,178,254,0.7)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center"
           >
-            {/* Glowing ring animation */}
-            <span className="absolute -inset-1 rounded-full bg-cyan-400/30 blur-sm group-hover:bg-cyan-400/50 transition duration-300 animate-pulse" />
+            <Bot className="w-7 h-7 text-[#00B2FE] group-hover:rotate-12 transition-transform" />
 
-            <div className="relative w-full h-full rounded-full bg-slate-950 flex items-center justify-center overflow-hidden">
-              <Bot className="w-7 h-7 text-cyan-400 group-hover:rotate-12 transition-transform duration-300" />
+            {/* Online Green Indicator */}
+            <span className="absolute bottom-1 right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-black" />
 
-              {/* Online pulse dot */}
-              <span className="absolute bottom-2 right-2 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-slate-950 shadow-sm" />
-
-              {/* Unread badge */}
-              {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-rose-500 text-white text-[10px] font-black rounded-full flex items-center justify-center border-2 border-slate-950 shadow">
-                  {unreadCount}
-                </span>
-              )}
-            </div>
+            {/* Unread badge */}
+            {unreadCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#FF007A] text-white text-[10px] font-black rounded-full flex items-center justify-center border-2 border-black">
+                {unreadCount}
+              </span>
+            )}
           </button>
         </div>
       )}
 
-      {/* Chat Window Modal */}
+      {/* Chat Window - Styled in Authentic TITAN TECH Homepage Style */}
       {isOpen && (
-        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[94vw] sm:w-[420px] max-h-[85vh] h-[640px] bg-slate-950/95 border border-cyan-500/30 rounded-3xl shadow-2xl shadow-cyan-950/80 backdrop-blur-xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-          {/* Header */}
-          <div className="p-4 bg-gradient-to-r from-slate-900 via-cyan-950/60 to-slate-900 border-b border-cyan-500/20 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="relative w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center">
-                <Bot className="w-6 h-6 text-cyan-400" />
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-slate-950" />
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[94vw] sm:w-[420px] max-h-[85vh] h-[640px] bg-white border-2 border-black rounded-lg shadow-[8px_8px_0px_#000000] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+          {/* Header - Pitch Black with White & #00B2FE branding */}
+          <div className="px-4 py-3 bg-black text-white flex items-center justify-between border-b-2 border-black shrink-0">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded bg-[#00B2FE] text-black flex items-center justify-center font-black">
+                <Bot className="w-5 h-5 text-black" />
               </div>
               <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-black text-white tracking-wide">TITAN AI CONSULTANT</h3>
-                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 uppercase">
-                    PRO
+                <div className="flex items-center gap-1.5">
+                  <h3 className="text-sm font-black uppercase tracking-tight text-white">
+                    TITAN <span className="text-[#00B2FE]">AI</span>
+                  </h3>
+                  <span className="px-1.5 py-0.2 bg-[#00B2FE] text-black font-black uppercase text-[9px] rounded-xs">
+                    FLAGSHIP
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Sẵn sàng tư vấn &amp; chốt đơn
+                <p className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                  Trợ Lý Tư Vấn 24/7
                 </p>
               </div>
             </div>
@@ -357,26 +340,26 @@ export default function TechConsultantBot() {
               <Link
                 href="/admin"
                 title="Mở Trang Quản Trị Admin"
-                className="p-1.5 rounded-xl hover:bg-white/10 text-slate-400 hover:text-cyan-400 transition text-[11px] flex items-center gap-1"
+                className="px-2 py-1 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-[#00B2FE] font-black text-[10px] uppercase rounded border border-neutral-700 flex items-center gap-1 transition"
               >
-                <ExternalLink className="w-4 h-4" />
+                <ExternalLink className="w-3 h-3" /> Admin
               </Link>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-xl hover:bg-white/10 text-slate-400 hover:text-white transition"
+                className="p-1 text-neutral-400 hover:text-white transition"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
           </div>
 
-          {/* Quick Suggestions Chips */}
-          <div className="px-3 py-2 bg-slate-900/60 border-b border-white/5 flex gap-1.5 overflow-x-auto no-scrollbar text-xs">
+          {/* Quick Prompt Chips */}
+          <div className="px-3 py-2 bg-neutral-100 border-b border-neutral-200 flex gap-1.5 overflow-x-auto no-scrollbar shrink-0">
             {quickPrompts.map((p, idx) => (
               <button
                 key={idx}
                 onClick={() => handleSendMessage(p.query)}
-                className="whitespace-nowrap px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 border border-white/10 hover:border-cyan-500/30 text-[11px] font-medium transition"
+                className="whitespace-nowrap px-2.5 py-1 bg-white hover:bg-black hover:text-white text-black font-black uppercase text-[10px] tracking-wider rounded border border-black shadow-[1px_1px_0px_#000] transition shrink-0"
               >
                 {p.label}
               </button>
@@ -384,39 +367,39 @@ export default function TechConsultantBot() {
           </div>
 
           {/* Messages Body */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 text-xs font-sans">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3.5 bg-neutral-50 text-xs">
             {messages.map((msg) => (
               <div
                 key={msg.id}
                 className={`flex gap-2.5 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {msg.sender === 'bot' && (
-                  <div className="w-7 h-7 rounded-xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center shrink-0 mt-0.5">
-                    <Bot className="w-4 h-4 text-cyan-400" />
+                  <div className="w-6 h-6 rounded bg-black text-[#00B2FE] flex items-center justify-center shrink-0 mt-0.5 border border-black">
+                    <Bot className="w-3.5 h-3.5" />
                   </div>
                 )}
 
-                <div className={`space-y-2 max-w-[85%]`}>
+                <div className="space-y-2 max-w-[85%]">
                   <div
-                    className={`p-3.5 rounded-2xl leading-relaxed whitespace-pre-wrap ${
+                    className={`p-3 rounded leading-relaxed whitespace-pre-wrap ${
                       msg.sender === 'user'
-                        ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-tr-xs font-medium'
-                        : 'bg-slate-900 border border-white/10 text-slate-200 rounded-tl-xs'
+                        ? 'bg-black text-white font-bold rounded-tr-none shadow-sm'
+                        : 'bg-white border border-neutral-200 text-neutral-900 font-medium rounded-tl-none shadow-xs'
                     }`}
                   >
                     {msg.text}
                   </div>
 
-                  {/* If Bot recommended products */}
+                  {/* Recommended Products in Homepage Card Aesthetic */}
                   {msg.products && msg.products.length > 0 && (
                     <div className="space-y-2 pt-1">
                       {msg.products.map((prod) => (
                         <div
                           key={prod.id}
-                          className="p-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 hover:border-cyan-400/60 transition space-y-2"
+                          className="p-2.5 bg-white border-2 border-black rounded shadow-[3px_3px_0px_#000] space-y-2"
                         >
                           <div className="flex gap-2.5 items-center">
-                            <div className="relative w-14 h-14 rounded-lg bg-black overflow-hidden shrink-0 border border-white/10">
+                            <div className="relative w-14 h-14 rounded bg-neutral-100 border border-neutral-200 overflow-hidden shrink-0">
                               {prod.thumbnail && (
                                 <Image
                                   src={prod.thumbnail}
@@ -428,31 +411,31 @@ export default function TechConsultantBot() {
                               )}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h4 className="font-bold text-white text-[11px] truncate">{prod.name}</h4>
-                              <p className="text-[10px] text-cyan-400 font-mono">
-                                {prod.brandName} • Còn {prod.totalStock} chiếc
-                              </p>
-                              <div className="text-xs font-black text-white mt-0.5">
+                              <span className="px-1.5 py-0.5 bg-[#00B2FE] text-black font-black uppercase text-[9px] rounded-xs inline-block mb-0.5">
+                                {prod.brandName}
+                              </span>
+                              <h4 className="font-black text-black text-[11px] truncate uppercase tracking-tight">
+                                {prod.name}
+                              </h4>
+                              <div className="text-xs font-black text-black mt-0.5">
                                 {formatPrice(prod.minPrice, currency)}
                               </div>
                             </div>
                           </div>
 
-                          {/* Action Buttons for this product */}
-                          <div className="grid grid-cols-2 gap-2 pt-1 border-t border-white/10">
+                          {/* Action Buttons */}
+                          <div className="grid grid-cols-2 gap-2 pt-1 border-t border-neutral-100">
                             <button
                               onClick={() => handleAddToCart(prod)}
-                              className="py-1.5 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-bold flex items-center justify-center gap-1 transition"
+                              className="py-1.5 px-2 bg-neutral-100 hover:bg-neutral-200 text-black border border-black font-black uppercase text-[10px] tracking-wider rounded flex items-center justify-center gap-1 transition"
                             >
-                              <ShoppingBag className="w-3 h-3 text-cyan-400" />
-                              Thêm Giỏ
+                              <ShoppingBag className="w-3 h-3" /> Thêm Giỏ
                             </button>
                             <button
                               onClick={() => handleStartQuickBuy(prod)}
-                              className="py-1.5 px-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 text-[10px] font-black flex items-center justify-center gap-1 transition"
+                              className="py-1.5 px-2 bg-[#00B2FE] hover:bg-[#009ce0] text-black font-black uppercase text-[10px] tracking-wider rounded flex items-center justify-center gap-1 transition shadow-xs"
                             >
-                              <Zap className="w-3 h-3" />
-                              ⚡ MUA NHANH
+                              <Zap className="w-3 h-3" /> Mua Nhanh
                             </button>
                           </div>
                         </div>
@@ -460,39 +443,36 @@ export default function TechConsultantBot() {
                     </div>
                   )}
 
-                  {/* If Message contains Order Action Result */}
+                  {/* Order Result Banner */}
                   {msg.orderAction && (
-                    <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/40 space-y-2">
-                      <div className="flex items-center justify-between text-[11px]">
-                        <span className="text-emerald-400 font-bold">Mã Đơn: #{msg.orderAction.orderCode}</span>
-                        <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px]">
+                    <div className="p-3 bg-neutral-900 text-white rounded border-2 border-[#00B2FE] space-y-2">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-mono font-black text-[#00B2FE]">#{msg.orderAction.orderCode}</span>
+                        <span className="px-1.5 py-0.5 bg-green-500 text-black font-black uppercase text-[9px] rounded-xs">
                           ĐÃ LƯU ADMIN
                         </span>
                       </div>
                       <Link
                         href="/admin"
-                        className="block w-full text-center py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-[11px] transition"
+                        className="block w-full text-center py-2 bg-[#00B2FE] hover:bg-[#009ce0] text-black font-black uppercase text-xs tracking-wider rounded transition"
                       >
-                        👉 Mở Xem Đơn Hàng Trên Trang Admin
+                        Mở Xem Đơn Hàng Trong Admin <ArrowRight className="w-3 h-3 inline ml-1" />
                       </Link>
                     </div>
                   )}
 
-                  <div className="text-[9px] text-slate-500 px-1">{msg.timestamp}</div>
+                  <div className="text-[9px] text-neutral-400 font-bold px-1">{msg.timestamp}</div>
                 </div>
               </div>
             ))}
 
             {isTyping && (
-              <div className="flex gap-2 items-center text-slate-400 text-xs">
-                <div className="w-6 h-6 rounded-lg bg-cyan-500/20 flex items-center justify-center">
-                  <Bot className="w-3.5 h-3.5 text-cyan-400" />
+              <div className="flex gap-2 items-center text-neutral-500 text-xs">
+                <div className="w-5 h-5 rounded bg-black text-[#00B2FE] flex items-center justify-center">
+                  <Bot className="w-3 h-3" />
                 </div>
-                <div className="flex items-center gap-1 bg-slate-900 border border-white/10 px-3 py-2 rounded-2xl">
-                  <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" />
-                  <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce [animation-delay:0.2s]" />
-                  <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce [animation-delay:0.4s]" />
-                  <span className="text-[10px] text-slate-400 ml-1">TITAN AI đang phản hồi...</span>
+                <div className="bg-white border border-neutral-200 px-3 py-1.5 rounded text-[11px] font-bold">
+                  TITAN AI đang phản hồi...
                 </div>
               </div>
             )}
@@ -502,23 +482,27 @@ export default function TechConsultantBot() {
 
           {/* Quick Buy Overlay Form inside Chat Window */}
           {checkoutProduct && (
-            <div className="absolute inset-0 bg-slate-950/98 backdrop-blur-xl z-20 flex flex-col p-5 overflow-y-auto animate-in slide-in-from-bottom duration-200">
-              <div className="flex items-center justify-between pb-3 border-b border-cyan-500/20">
-                <div className="flex items-center gap-2">
-                  <Zap className="w-5 h-5 text-cyan-400" />
-                  <h4 className="text-sm font-black text-white uppercase">MUA NHANH TRỰC TIẾP QUA CHAT</h4>
+            <div className="absolute inset-0 bg-white z-20 flex flex-col p-5 overflow-y-auto animate-in slide-in-from-bottom duration-150">
+              <div className="flex items-center justify-between pb-3 border-b-2 border-black">
+                <div className="flex items-center gap-1.5">
+                  <span className="px-1.5 py-0.5 bg-[#00B2FE] text-black font-black text-[10px] uppercase rounded-xs">
+                    EXPRESS
+                  </span>
+                  <h4 className="text-xs font-black uppercase tracking-tight text-black">
+                    MUA NHANH TRỰC TIẾP QUA CHAT
+                  </h4>
                 </div>
                 <button
                   onClick={() => setCheckoutProduct(null)}
-                  className="p-1 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white"
+                  className="p-1 text-black hover:opacity-70"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
               {/* Selected Product Summary */}
-              <div className="py-3 flex items-center gap-3 border-b border-white/10">
-                <div className="relative w-12 h-12 rounded-lg bg-black overflow-hidden border border-white/10 shrink-0">
+              <div className="py-3 flex items-center gap-3 border-b border-neutral-200">
+                <div className="relative w-12 h-12 rounded bg-neutral-100 border border-neutral-200 overflow-hidden shrink-0">
                   {checkoutProduct.thumbnail && (
                     <Image
                       src={checkoutProduct.thumbnail}
@@ -530,24 +514,24 @@ export default function TechConsultantBot() {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold text-white truncate">{checkoutProduct.name}</p>
-                  <p className="text-xs font-black text-cyan-400 mt-0.5">
+                  <p className="text-xs font-black uppercase text-black truncate">{checkoutProduct.name}</p>
+                  <p className="text-xs font-black text-[#00B2FE] mt-0.5">
                     {formatPrice(checkoutProduct.minPrice * quantity, currency)}
                   </p>
                 </div>
-                <div className="flex items-center border border-white/20 rounded-lg">
+                <div className="flex items-center border border-black rounded">
                   <button
                     type="button"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="px-2 py-1 text-slate-300 hover:text-white text-xs font-bold"
+                    className="px-2 py-0.5 text-black font-black text-xs hover:bg-neutral-100"
                   >
                     -
                   </button>
-                  <span className="px-2 text-xs font-mono text-white">{quantity}</span>
+                  <span className="px-2 text-xs font-mono font-black text-black">{quantity}</span>
                   <button
                     type="button"
                     onClick={() => setQuantity(quantity + 1)}
-                    className="px-2 py-1 text-slate-300 hover:text-white text-xs font-bold"
+                    className="px-2 py-0.5 text-black font-black text-xs hover:bg-neutral-100"
                   >
                     +
                   </button>
@@ -555,11 +539,11 @@ export default function TechConsultantBot() {
               </div>
 
               {/* Order Form */}
-              <form onSubmit={handleSubmitQuickOrder} className="space-y-3 pt-3 flex-1 flex flex-col justify-between">
-                <div className="space-y-2.5 text-xs">
+              <form onSubmit={handleSubmitQuickOrder} className="space-y-3 pt-3 flex-1 flex flex-col justify-between text-xs">
+                <div className="space-y-2.5">
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-300 mb-1">
-                      Họ và tên người nhận <span className="text-rose-400">*</span>
+                    <label className="block text-[11px] font-black uppercase tracking-wider text-black mb-1">
+                      Họ và tên người nhận <span className="text-rose-600">*</span>
                     </label>
                     <input
                       type="text"
@@ -567,13 +551,13 @@ export default function TechConsultantBot() {
                       placeholder="Ví dụ: Nguyễn Văn An"
                       value={customerName}
                       onChange={(e) => setCustomerName(e.target.value)}
-                      className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white placeholder-slate-500 outline-none"
+                      className="w-full bg-white border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium placeholder-neutral-400 outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-300 mb-1">
-                      Số điện thoại nhận hàng <span className="text-rose-400">*</span>
+                    <label className="block text-[11px] font-black uppercase tracking-wider text-black mb-1">
+                      Số điện thoại nhận hàng <span className="text-rose-600">*</span>
                     </label>
                     <input
                       type="tel"
@@ -581,13 +565,13 @@ export default function TechConsultantBot() {
                       placeholder="Ví dụ: 0912345678"
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(e.target.value)}
-                      className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white placeholder-slate-500 outline-none"
+                      className="w-full bg-white border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium placeholder-neutral-400 outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-300 mb-1">
-                      Địa chỉ nhận hàng chi tiết <span className="text-rose-400">*</span>
+                    <label className="block text-[11px] font-black uppercase tracking-wider text-black mb-1">
+                      Địa chỉ nhận hàng chi tiết <span className="text-rose-600">*</span>
                     </label>
                     <input
                       type="text"
@@ -595,66 +579,70 @@ export default function TechConsultantBot() {
                       placeholder="Số nhà, đường, phường/xã, quận/huyện, TP"
                       value={customerAddress}
                       onChange={(e) => setCustomerAddress(e.target.value)}
-                      className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white placeholder-slate-500 outline-none"
+                      className="w-full bg-white border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium placeholder-neutral-400 outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-300 mb-1">Hình thức thanh toán</label>
+                    <label className="block text-[11px] font-black uppercase tracking-wider text-black mb-1">
+                      Hình thức thanh toán
+                    </label>
                     <div className="grid grid-cols-2 gap-2">
                       <button
                         type="button"
                         onClick={() => setPaymentMethod('COD')}
-                        className={`py-2 px-2.5 rounded-xl border text-[11px] font-bold text-center transition ${
+                        className={`py-2 px-2 text-[10px] font-black uppercase tracking-wider rounded border text-center transition ${
                           paymentMethod === 'COD'
-                            ? 'bg-cyan-500/20 border-cyan-400 text-cyan-300'
-                            : 'bg-slate-900 border-white/10 text-slate-400'
+                            ? 'bg-black text-white border-black'
+                            : 'bg-white text-neutral-700 border-neutral-300 hover:bg-neutral-100'
                         }`}
                       >
-                        Thanh toán khi nhận (COD)
+                        Nhận hàng (COD)
                       </button>
                       <button
                         type="button"
                         onClick={() => setPaymentMethod('BANK_TRANSFER')}
-                        className={`py-2 px-2.5 rounded-xl border text-[11px] font-bold text-center transition ${
+                        className={`py-2 px-2 text-[10px] font-black uppercase tracking-wider rounded border text-center transition ${
                           paymentMethod === 'BANK_TRANSFER'
-                            ? 'bg-cyan-500/20 border-cyan-400 text-cyan-300'
-                            : 'bg-slate-900 border-white/10 text-slate-400'
+                            ? 'bg-black text-white border-black'
+                            : 'bg-white text-neutral-700 border-neutral-300 hover:bg-neutral-100'
                         }`}
                       >
-                        Chuyển khoản (Banking)
+                        Chuyển khoản (CK)
                       </button>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-300 mb-1">Ghi chú giao hàng</label>
+                    <label className="block text-[11px] font-black uppercase tracking-wider text-black mb-1">
+                      Ghi chú đơn hàng
+                    </label>
                     <input
                       type="text"
                       placeholder="Giờ giao thuận tiện, gọi trước khi tới..."
                       value={customerNote}
                       onChange={(e) => setCustomerNote(e.target.value)}
-                      className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-1.5 text-white placeholder-slate-500 outline-none text-xs"
+                      className="w-full bg-white border border-neutral-300 focus:border-black rounded px-3 py-1.5 text-black font-medium placeholder-neutral-400 outline-none"
                     />
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-white/10 space-y-2">
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-300">
-                    <span>Tổng đơn hàng:</span>
-                    <span className="text-cyan-400 text-base font-black">
+                <div className="pt-3 border-t-2 border-black space-y-2">
+                  <div className="flex items-center justify-between font-black uppercase text-xs">
+                    <span>Tổng Đơn:</span>
+                    <span className="text-base text-black font-black">
                       {formatPrice(checkoutProduct.minPrice * quantity, currency)}
                     </span>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 via-cyan-500 to-blue-500 hover:brightness-110 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 active:scale-[0.99] transition"
+                    className="w-full py-3 bg-[#00B2FE] hover:bg-[#009ce0] text-black font-black uppercase text-xs tracking-wider rounded border-2 border-black shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition flex items-center justify-center gap-2"
                   >
-                    <CheckCircle2 className="w-4 h-4" /> Xác Nhận Đặt Hàng &amp; Gửi Về Admin
+                    <CheckCircle2 className="w-4 h-4" /> Xác Nhận Đặt Hàng &amp; Gửi Admin
                   </button>
-                  <p className="text-[10px] text-center text-slate-500">
-                    Đơn hàng sẽ ngay lập tức xuất hiện trên trang Quản Trị Admin của TITAN TECH.
+                  <p className="text-[10px] text-center text-neutral-500 font-bold uppercase tracking-wider">
+                    Đơn hàng sẽ ngay lập tức xuất hiện trên trang Admin TITAN TECH.
                   </p>
                 </div>
               </form>
@@ -662,7 +650,7 @@ export default function TechConsultantBot() {
           )}
 
           {/* Footer Input */}
-          <div className="p-3 bg-slate-900 border-t border-cyan-500/20">
+          <div className="p-3 bg-white border-t-2 border-black shrink-0">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -675,12 +663,12 @@ export default function TechConsultantBot() {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="Nhập câu hỏi, cấu hình cần tư vấn hoặc mã đơn..."
-                className="flex-1 bg-slate-950 border border-white/10 focus:border-cyan-400 rounded-2xl px-4 py-2.5 text-xs text-white placeholder-slate-500 outline-none transition"
+                className="flex-1 bg-neutral-100 border border-neutral-300 focus:border-black rounded px-3 py-2 text-xs text-black placeholder-neutral-400 outline-none font-medium"
               />
               <button
                 type="submit"
                 disabled={!inputMessage.trim()}
-                className="p-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 disabled:opacity-40 disabled:pointer-events-none transition"
+                className="p-2.5 bg-black hover:bg-neutral-800 text-[#00B2FE] disabled:opacity-40 disabled:pointer-events-none rounded transition"
               >
                 <Send className="w-4 h-4" />
               </button>

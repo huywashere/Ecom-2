@@ -23,11 +23,11 @@ import {
   RefreshCw,
   Bot,
   Globe,
-  SlidersHorizontal,
-  ChevronRight,
   ExternalLink,
   ShieldCheck,
   Check,
+  ArrowRight,
+  SlidersHorizontal,
 } from 'lucide-react';
 import { useAdminOrderStore, AdminOrder, OrderSource } from '@/store/admin-order-store';
 import { useAdminProductStore } from '@/store/admin-product-store';
@@ -262,38 +262,38 @@ export default function AdminDashboardPage() {
     switch (status) {
       case 'PENDING':
         return (
-          <span className="px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[11px] font-bold flex items-center gap-1">
-            <Clock className="w-3 h-3" /> Chờ xử lý
+          <span className="px-2.5 py-1 rounded bg-amber-100 text-amber-800 text-[11px] font-black uppercase tracking-wider flex items-center gap-1 border border-amber-300">
+            <Clock className="w-3 h-3 text-amber-600" /> Chờ xử lý
           </span>
         );
       case 'CONFIRMED':
         return (
-          <span className="px-2.5 py-1 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-300 text-[11px] font-bold flex items-center gap-1">
-            <Check className="w-3 h-3" /> Đã duyệt
+          <span className="px-2.5 py-1 rounded bg-blue-100 text-blue-800 text-[11px] font-black uppercase tracking-wider flex items-center gap-1 border border-blue-300">
+            <Check className="w-3 h-3 text-blue-600" /> Đã duyệt
           </span>
         );
       case 'PROCESSING':
         return (
-          <span className="px-2.5 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-[11px] font-bold flex items-center gap-1">
-            <Package className="w-3 h-3" /> Đang đóng gói
+          <span className="px-2.5 py-1 rounded bg-purple-100 text-purple-800 text-[11px] font-black uppercase tracking-wider flex items-center gap-1 border border-purple-300">
+            <Package className="w-3 h-3 text-purple-600" /> Đóng gói
           </span>
         );
       case 'SHIPPING':
         return (
-          <span className="px-2.5 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-[11px] font-bold flex items-center gap-1">
-            <Truck className="w-3 h-3" /> Đang giao
+          <span className="px-2.5 py-1 rounded bg-[#00B2FE]/15 text-[#0074A6] text-[11px] font-black uppercase tracking-wider flex items-center gap-1 border border-[#00B2FE]/40">
+            <Truck className="w-3 h-3 text-[#0074A6]" /> Đang giao
           </span>
         );
       case 'DELIVERED':
         return (
-          <span className="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[11px] font-bold flex items-center gap-1">
-            <CheckCircle2 className="w-3 h-3" /> Giao thành công
+          <span className="px-2.5 py-1 rounded bg-green-100 text-green-800 text-[11px] font-black uppercase tracking-wider flex items-center gap-1 border border-green-300">
+            <CheckCircle2 className="w-3 h-3 text-green-600" /> Thành công
           </span>
         );
       case 'CANCELLED':
         return (
-          <span className="px-2.5 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-[11px] font-bold flex items-center gap-1">
-            <X className="w-3 h-3" /> Đã hủy
+          <span className="px-2.5 py-1 rounded bg-rose-100 text-rose-800 text-[11px] font-black uppercase tracking-wider flex items-center gap-1 border border-rose-300">
+            <X className="w-3 h-3 text-rose-600" /> Đã hủy
           </span>
         );
     }
@@ -303,152 +303,170 @@ export default function AdminDashboardPage() {
     switch (source) {
       case 'CHATBOT':
         return (
-          <span className="px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[10px] font-bold flex items-center gap-1">
-            <Bot className="w-3 h-3" /> Chatbot AI
+          <span className="px-2 py-0.5 bg-black text-[#00B2FE] border border-[#00B2FE] text-[10px] font-black uppercase tracking-wider rounded flex items-center gap-1">
+            <Bot className="w-3 h-3 text-[#00B2FE]" /> Chatbot AI
           </span>
         );
       case 'CHECKOUT':
         return (
-          <span className="px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px] font-bold flex items-center gap-1">
+          <span className="px-2 py-0.5 bg-neutral-100 text-black border border-black text-[10px] font-black uppercase tracking-wider rounded flex items-center gap-1">
             <Globe className="w-3 h-3" /> Web Checkout
           </span>
         );
       case 'MANUAL':
         return (
-          <span className="px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold flex items-center gap-1">
-            <Edit3 className="w-3 h-3" /> Tạo Thủ Công
+          <span className="px-2 py-0.5 bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-black uppercase tracking-wider rounded flex items-center gap-1">
+            <Edit3 className="w-3 h-3" /> Thủ Công
           </span>
         );
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans pb-24">
-      {/* Toast */}
+    <div className="min-h-screen bg-neutral-50 text-neutral-900 font-sans pb-24">
+      {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed top-6 right-6 z-50 bg-emerald-500 text-slate-950 font-bold px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2 border border-emerald-400 animate-in fade-in duration-200">
-          <CheckCircle2 className="w-5 h-5" />
-          <span className="text-xs">{toastMessage}</span>
+        <div className="fixed top-6 right-6 z-50 bg-black text-white font-black text-xs uppercase tracking-wider px-4 py-3 rounded border-2 border-[#00B2FE] shadow-[4px_4px_0px_#000] flex items-center gap-2 animate-in fade-in duration-200">
+          <CheckCircle2 className="w-5 h-5 text-[#00B2FE]" />
+          <span>{toastMessage}</span>
         </div>
       )}
 
-      {/* Top Banner & Header */}
-      <div className="border-b border-white/10 bg-slate-900/60 backdrop-blur-md sticky top-0 z-30">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-8 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* Top Header - White with Black Brand and #00B2FE Accent */}
+      <div className="bg-white border-b border-neutral-200 sticky top-0 z-30 shadow-xs">
+        <div className="max-w-[1920px] mx-auto px-4 sm:px-8 py-3.5 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center">
-              <LayoutDashboard className="w-5 h-5 text-cyan-400" />
-            </div>
+            <Link href="/" className="flex items-center gap-2">
+              <span className="font-black text-2xl tracking-tighter uppercase text-black">
+                TITAN<span className="text-[#00B2FE]">TECH</span>
+              </span>
+            </Link>
+            <div className="h-6 w-px bg-neutral-200" />
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                  TITAN CONTROL CENTER
-                </h1>
-                <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[10px] font-mono font-bold">
-                  ADMIN PRO
+                <span className="px-2 py-0.5 bg-black text-white text-[10px] font-black uppercase tracking-widest rounded-xs">
+                  ADMIN CONTROL
+                </span>
+                <span className="text-xs font-black uppercase text-neutral-600 hidden sm:inline">
+                  Hệ Thống Quản Trị Đơn Hàng &amp; Kho Sản Phẩm
                 </span>
               </div>
-              <p className="text-xs text-slate-400">
-                Hệ thống Quản Trị Đơn Hàng CRUD &amp; Quản Lý Kho Sản Phẩm TITAN TECH
-              </p>
             </div>
           </div>
 
-          {/* Quick Actions & Tab Switcher */}
+          {/* Navigation Tabs - matching homepage brutalist buttons */}
           <div className="flex flex-wrap items-center gap-2">
-            <div className="bg-slate-900 p-1 rounded-2xl border border-white/10 flex items-center">
+            <div className="flex items-center gap-1.5 bg-neutral-100 p-1 rounded border border-neutral-200">
               <button
                 onClick={() => setActiveTab('orders')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
+                className={`px-4 py-2 text-xs font-black uppercase tracking-wider rounded transition flex items-center gap-1.5 ${
                   activeTab === 'orders'
-                    ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-black text-white shadow-xs'
+                    : 'text-neutral-600 hover:text-black hover:bg-white'
                 }`}
               >
-                <ShoppingBag className="w-4 h-4" /> Quản Lý Đơn Hàng ({orders.length})
+                <ShoppingBag className="w-3.5 h-3.5" /> Đơn Hàng ({orders.length})
               </button>
               <button
                 onClick={() => setActiveTab('products')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
+                className={`px-4 py-2 text-xs font-black uppercase tracking-wider rounded transition flex items-center gap-1.5 ${
                   activeTab === 'products'
-                    ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-black text-white shadow-xs'
+                    : 'text-neutral-600 hover:text-black hover:bg-white'
                 }`}
               >
-                <Package className="w-4 h-4" /> Quản Lý Sản Phẩm ({products.length})
+                <Package className="w-3.5 h-3.5" /> Sản Phẩm ({products.length})
               </button>
               <button
                 onClick={() => setActiveTab('analytics')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
+                className={`px-4 py-2 text-xs font-black uppercase tracking-wider rounded transition flex items-center gap-1.5 ${
                   activeTab === 'analytics'
-                    ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-black text-white shadow-xs'
+                    : 'text-neutral-600 hover:text-black hover:bg-white'
                 }`}
               >
-                <DollarSign className="w-4 h-4" /> Báo Cáo &amp; Doanh Thu
+                <DollarSign className="w-3.5 h-3.5" /> Doanh Thu
               </button>
             </div>
 
             <Link
               href="/"
               target="_blank"
-              className="px-3.5 py-2 rounded-xl bg-slate-900 border border-white/10 hover:border-cyan-500/40 text-slate-300 hover:text-white text-xs font-bold flex items-center gap-1.5 transition"
+              className="px-4 py-2 bg-white hover:bg-neutral-100 text-black border border-neutral-300 text-xs font-black uppercase tracking-wider rounded flex items-center gap-1.5 transition"
             >
-              <ExternalLink className="w-3.5 h-3.5 text-cyan-400" /> Xem Shop
+              <ExternalLink className="w-3.5 h-3.5 text-[#00B2FE]" /> Xem Cửa Hàng
             </Link>
           </div>
         </div>
       </div>
 
       <div className="max-w-[1920px] mx-auto px-4 sm:px-8 pt-6 space-y-6">
-        {/* 4 Stats Cards */}
+        {/* 4 Stats Cards - High contrast White with Black & Neon tags */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="p-5 rounded-2xl bg-gradient-to-br from-cyan-950/40 to-slate-900 border border-cyan-500/30">
+          <div className="p-5 bg-white border border-neutral-200 rounded shadow-xs relative overflow-hidden">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-slate-400">Doanh Thu Tổng Đơn</span>
-              <div className="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center">
+              <span className="text-xs font-black uppercase tracking-wider text-neutral-500">
+                Tổng Doanh Thu
+              </span>
+              <div className="w-8 h-8 rounded bg-black text-[#00B2FE] flex items-center justify-center font-black">
                 <DollarSign className="w-4 h-4" />
               </div>
             </div>
-            <div className="text-2xl font-black text-white">{formatPrice(stats.totalRev, currency)}</div>
-            <p className="text-[11px] text-cyan-400 mt-1 flex items-center gap-1 font-mono">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" /> {stats.totalOrders} đơn hàng ghi nhận
+            <div className="text-2xl sm:text-3xl font-black text-black tracking-tight">
+              {formatPrice(stats.totalRev, currency)}
+            </div>
+            <p className="text-[11px] font-bold text-neutral-500 mt-1 uppercase tracking-wider">
+              {stats.totalOrders} đơn hàng ghi nhận trong hệ thống
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-gradient-to-br from-purple-950/40 to-slate-900 border border-purple-500/30">
+          <div className="p-5 bg-white border border-neutral-200 rounded shadow-xs relative overflow-hidden">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-slate-400">Nguồn Đơn Chốt</span>
-              <div className="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center">
+              <span className="text-xs font-black uppercase tracking-wider text-neutral-500">
+                Nguồn Đơn Chốt
+              </span>
+              <div className="w-8 h-8 rounded bg-black text-[#00B2FE] flex items-center justify-center font-black">
                 <Bot className="w-4 h-4" />
               </div>
             </div>
-            <div className="text-2xl font-black text-white">{stats.chatbotOrders} Chatbot / {stats.checkoutOrders} Web</div>
-            <p className="text-[11px] text-purple-300 mt-1 font-mono">
+            <div className="text-2xl sm:text-3xl font-black text-black tracking-tight">
+              {stats.chatbotOrders} Chatbot / {stats.checkoutOrders} Web
+            </div>
+            <p className="text-[11px] font-bold text-[#0074A6] mt-1 uppercase tracking-wider">
               Trợ lý AI đóng góp {Math.round((stats.chatbotOrders / (stats.totalOrders || 1)) * 100)}% tổng số đơn
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-gradient-to-br from-amber-950/40 to-slate-900 border border-amber-500/30">
+          <div className="p-5 bg-white border border-neutral-200 rounded shadow-xs relative overflow-hidden">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-slate-400">Đơn Chờ Xử Lý</span>
-              <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+              <span className="text-xs font-black uppercase tracking-wider text-neutral-500">
+                Đơn Chờ Xử Lý
+              </span>
+              <div className="w-8 h-8 rounded bg-amber-500 text-white flex items-center justify-center font-black">
                 <Clock className="w-4 h-4" />
               </div>
             </div>
-            <div className="text-2xl font-black text-white">{stats.pendingOrders} đơn mới</div>
-            <p className="text-[11px] text-amber-400 mt-1 font-mono">Cần liên hệ xác nhận xuất kho</p>
+            <div className="text-2xl sm:text-3xl font-black text-black tracking-tight">
+              {stats.pendingOrders} Đơn Mới
+            </div>
+            <p className="text-[11px] font-bold text-amber-700 mt-1 uppercase tracking-wider">
+              Cần liên hệ xác nhận xuất kho
+            </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/40 to-slate-900 border border-emerald-500/30">
+          <div className="p-5 bg-white border border-neutral-200 rounded shadow-xs relative overflow-hidden">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-slate-400">Tồn Kho Sản Phẩm</span>
-              <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+              <span className="text-xs font-black uppercase tracking-wider text-neutral-500">
+                Tồn Kho Sản Phẩm
+              </span>
+              <div className="w-8 h-8 rounded bg-green-600 text-white flex items-center justify-center font-black">
                 <Package className="w-4 h-4" />
               </div>
             </div>
-            <div className="text-2xl font-black text-white">{stats.totalInventory} chiếc</div>
-            <p className="text-[11px] text-emerald-400 mt-1 font-mono">
+            <div className="text-2xl sm:text-3xl font-black text-black tracking-tight">
+              {stats.totalInventory} Chiếc
+            </div>
+            <p className="text-[11px] font-bold text-green-700 mt-1 uppercase tracking-wider">
               {stats.totalProducts} mã hàng ({stats.lowStockCount} mã sắp hết)
             </p>
           </div>
@@ -460,22 +478,22 @@ export default function AdminDashboardPage() {
         {activeTab === 'orders' && (
           <div className="space-y-4">
             {/* Action Bar */}
-            <div className="p-4 rounded-2xl bg-slate-900/90 border border-white/10 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+            <div className="p-4 bg-white border border-neutral-200 rounded flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 shadow-xs">
               <div className="flex flex-wrap items-center gap-3 flex-1">
                 {/* Search */}
                 <div className="relative min-w-[260px] flex-1 max-w-md">
-                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
                   <input
                     type="text"
                     value={orderSearch}
                     onChange={(e) => setOrderSearch(e.target.value)}
                     placeholder="Tìm theo Mã đơn, Khách hàng, SĐT, Sản phẩm..."
-                    className="w-full bg-slate-950 border border-white/10 focus:border-cyan-400 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 outline-none transition"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded pl-9 pr-4 py-2 text-xs text-black placeholder-neutral-400 outline-none font-medium"
                   />
                   {orderSearch && (
                     <button
                       onClick={() => setOrderSearch('')}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
@@ -486,11 +504,11 @@ export default function AdminDashboardPage() {
                 <select
                   value={orderStatusFilter}
                   onChange={(e) => setOrderStatusFilter(e.target.value)}
-                  className="bg-slate-950 border border-white/10 text-xs text-white rounded-xl px-3 py-2 outline-none focus:border-cyan-400"
+                  className="bg-neutral-50 border border-neutral-300 text-xs text-black rounded px-3 py-2 outline-none font-bold uppercase"
                 >
-                  <option value="ALL">Tất cả trạng thái</option>
+                  <option value="ALL">TẤT CẢ TRẠNG THÁI</option>
                   <option value="PENDING">Chờ xử lý</option>
-                  <option value="CONFIRMED">Đã xác nhận</option>
+                  <option value="CONFIRMED">Đã duyệt</option>
                   <option value="PROCESSING">Đang đóng gói</option>
                   <option value="SHIPPING">Đang giao hàng</option>
                   <option value="DELIVERED">Đã giao thành công</option>
@@ -501,12 +519,12 @@ export default function AdminDashboardPage() {
                 <select
                   value={orderSourceFilter}
                   onChange={(e) => setOrderSourceFilter(e.target.value)}
-                  className="bg-slate-950 border border-white/10 text-xs text-white rounded-xl px-3 py-2 outline-none focus:border-cyan-400"
+                  className="bg-neutral-50 border border-neutral-300 text-xs text-black rounded px-3 py-2 outline-none font-bold uppercase"
                 >
-                  <option value="ALL">Tất cả nguồn đơn</option>
-                  <option value="CHATBOT">🤖 Từ Chatbot AI</option>
-                  <option value="CHECKOUT">🛒 Từ Web Checkout</option>
-                  <option value="MANUAL">✍️ Tạo Thủ Công</option>
+                  <option value="ALL">TẤT CẢ NGUỒN</option>
+                  <option value="CHATBOT">🤖 TỪ CHATBOT AI</option>
+                  <option value="CHECKOUT">🛒 TỪ WEB CHECKOUT</option>
+                  <option value="MANUAL">✍️ TẠO THỦ CÔNG</option>
                 </select>
               </div>
 
@@ -514,14 +532,14 @@ export default function AdminDashboardPage() {
               <div className="flex items-center gap-2 self-end md:self-auto">
                 <button
                   onClick={() => setIsCreateOrderOpen(true)}
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-lg shadow-cyan-500/20 transition active:scale-95"
+                  className="px-5 py-2.5 bg-[#00B2FE] hover:bg-[#009ce0] text-black font-black uppercase text-xs tracking-wider rounded border border-black shadow-[2px_2px_0px_#000] flex items-center gap-1.5 transition active:translate-x-0.5 active:translate-y-0.5"
                 >
                   <Plus className="w-4 h-4" /> Thêm Đơn Hàng Mới
                 </button>
                 <button
                   onClick={resetOrders}
                   title="Khôi phục dữ liệu đơn mẫu"
-                  className="p-2 rounded-xl bg-slate-950 border border-white/10 hover:bg-slate-800 text-slate-400 hover:text-white transition"
+                  className="p-2.5 bg-white border border-neutral-300 hover:bg-neutral-100 text-neutral-600 hover:text-black rounded transition"
                 >
                   <RefreshCw className="w-4 h-4" />
                 </button>
@@ -529,13 +547,13 @@ export default function AdminDashboardPage() {
             </div>
 
             {/* Orders Table */}
-            <div className="rounded-2xl bg-slate-900/90 border border-white/10 overflow-hidden shadow-2xl">
+            <div className="bg-white border border-neutral-200 rounded overflow-hidden shadow-xs">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-b border-white/10 bg-slate-950/60 text-slate-400 font-bold uppercase tracking-wider text-[11px]">
+                    <tr className="bg-black text-white font-black uppercase tracking-wider text-[11px]">
                       <th className="py-3.5 px-4">Mã Đơn / Ngày</th>
-                      <th className="py-3.5 px-4">Nguồn</th>
+                      <th className="py-3.5 px-4">Nguồn Đơn</th>
                       <th className="py-3.5 px-4">Khách Hàng</th>
                       <th className="py-3.5 px-4">Sản Phẩm Đặt</th>
                       <th className="py-3.5 px-4">Tổng Tiền</th>
@@ -544,26 +562,26 @@ export default function AdminDashboardPage() {
                       <th className="py-3.5 px-4 text-right">Thao Tác CRUD</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5">
+                  <tbody className="divide-y divide-neutral-200">
                     {filteredOrders.length === 0 ? (
                       <tr>
-                        <td colSpan={8} className="py-12 text-center text-slate-400">
-                          <ShoppingBag className="w-10 h-10 mx-auto text-slate-600 mb-2 opacity-50" />
+                        <td colSpan={8} className="py-12 text-center text-neutral-500 font-bold uppercase text-xs">
+                          <ShoppingBag className="w-8 h-8 mx-auto text-neutral-400 mb-2 opacity-50" />
                           Không tìm thấy đơn hàng nào phù hợp với bộ lọc tìm kiếm.
                         </td>
                       </tr>
                     ) : (
                       filteredOrders.map((order) => (
-                        <tr key={order.id} className="hover:bg-white/[0.03] transition">
+                        <tr key={order.id} className="hover:bg-neutral-50 transition">
                           {/* Order Code */}
                           <td className="py-4 px-4 whitespace-nowrap">
                             <button
                               onClick={() => setViewingOrder(order)}
-                              className="font-mono font-black text-cyan-400 hover:underline block text-left"
+                              className="font-mono font-black text-black hover:text-[#00B2FE] hover:underline block text-left"
                             >
                               #{order.orderCode}
                             </button>
-                            <div className="text-[10px] text-slate-500 font-sans mt-0.5">
+                            <div className="text-[10px] text-neutral-500 font-bold mt-0.5">
                               {formatDate(order.createdAt)}
                             </div>
                           </td>
@@ -573,18 +591,20 @@ export default function AdminDashboardPage() {
 
                           {/* Customer */}
                           <td className="py-4 px-4 whitespace-nowrap">
-                            <p className="font-bold text-white">{order.recipientName}</p>
-                            <p className="text-[11px] text-slate-400 font-mono">{order.recipientPhone}</p>
+                            <p className="font-black uppercase text-black">{order.recipientName}</p>
+                            <p className="text-[11px] text-neutral-500 font-mono font-bold">{order.recipientPhone}</p>
                           </td>
 
                           {/* Items summary */}
-                          <td className="py-4 px-4 max-w-[260px]">
+                          <td className="py-4 px-4 max-w-[280px]">
                             <div className="space-y-1">
                               {order.items?.map((item, idx) => (
                                 <div key={idx} className="flex items-center gap-1.5 truncate">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
-                                  <span className="text-slate-200 font-medium truncate">{item.productName}</span>
-                                  <span className="text-[10px] text-slate-400 font-mono shrink-0">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#00B2FE] shrink-0" />
+                                  <span className="text-neutral-800 font-bold uppercase text-[11px] truncate">
+                                    {item.productName}
+                                  </span>
+                                  <span className="text-[10px] text-neutral-500 font-mono font-black shrink-0">
                                     x{item.quantity}
                                   </span>
                                 </div>
@@ -593,19 +613,19 @@ export default function AdminDashboardPage() {
                           </td>
 
                           {/* Total */}
-                          <td className="py-4 px-4 font-black text-white whitespace-nowrap">
+                          <td className="py-4 px-4 font-black text-black whitespace-nowrap text-sm">
                             {formatPrice(order.finalAmount, currency)}
                           </td>
 
                           {/* Payment */}
                           <td className="py-4 px-4 whitespace-nowrap">
                             <div className="space-y-1">
-                              <span className="px-2 py-0.5 rounded bg-slate-950 border border-white/10 text-slate-300 font-mono text-[10px] block w-fit">
+                              <span className="px-2 py-0.5 bg-neutral-100 border border-neutral-300 text-black font-black uppercase text-[10px] rounded-xs block w-fit">
                                 {order.paymentMethod}
                               </span>
                               <span
                                 className={`text-[10px] font-bold ${
-                                  order.paymentStatus === 'COMPLETED' ? 'text-emerald-400' : 'text-amber-400'
+                                  order.paymentStatus === 'COMPLETED' ? 'text-green-700' : 'text-amber-700'
                                 }`}
                               >
                                 {order.paymentStatus === 'COMPLETED' ? '● Đã thanh toán' : '○ Chờ thu tiền'}
@@ -618,12 +638,12 @@ export default function AdminDashboardPage() {
                             <select
                               value={order.orderStatus}
                               onChange={(e) => updateOrderStatus(order.id, e.target.value as OrderStatus)}
-                              className="bg-slate-950 border border-white/15 text-xs text-white rounded-xl px-2.5 py-1.5 focus:border-cyan-400 outline-none font-bold cursor-pointer"
+                              className="bg-white border-2 border-black text-xs text-black rounded px-2.5 py-1.5 focus:border-[#00B2FE] outline-none font-black uppercase cursor-pointer"
                             >
                               <option value="PENDING">⏳ Chờ xử lý</option>
                               <option value="CONFIRMED">✅ Đã duyệt</option>
-                              <option value="PROCESSING">📦 Đang đóng gói</option>
-                              <option value="SHIPPING">🚚 Đang giao hàng</option>
+                              <option value="PROCESSING">📦 Đóng gói</option>
+                              <option value="SHIPPING">🚚 Đang giao</option>
                               <option value="DELIVERED">🎉 Giao thành công</option>
                               <option value="CANCELLED">❌ Hủy đơn</option>
                             </select>
@@ -635,23 +655,23 @@ export default function AdminDashboardPage() {
                               <button
                                 onClick={() => setViewingOrder(order)}
                                 title="Xem chi tiết đơn"
-                                className="p-1.5 rounded-lg bg-slate-800 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 transition"
+                                className="p-2 bg-neutral-100 hover:bg-neutral-200 text-black border border-neutral-300 rounded transition"
                               >
-                                <Eye className="w-4 h-4" />
+                                <Eye className="w-3.5 h-3.5" />
                               </button>
                               <button
                                 onClick={() => setEditingOrder(order)}
                                 title="Sửa thông tin đơn"
-                                className="p-1.5 rounded-lg bg-slate-800 hover:bg-blue-500/20 text-slate-300 hover:text-blue-300 transition"
+                                className="p-2 bg-neutral-100 hover:bg-blue-50 text-blue-600 border border-neutral-300 rounded transition"
                               >
-                                <Edit3 className="w-4 h-4" />
+                                <Edit3 className="w-3.5 h-3.5" />
                               </button>
                               <button
                                 onClick={() => setDeletingOrderId(order.id)}
                                 title="Xóa đơn hàng"
-                                className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-500/20 text-slate-300 hover:text-rose-400 transition"
+                                className="p-2 bg-neutral-100 hover:bg-rose-50 text-rose-600 border border-neutral-300 rounded transition"
                               >
-                                <Trash2 className="w-4 h-4" />
+                                <Trash2 className="w-3.5 h-3.5" />
                               </button>
                             </div>
                           </td>
@@ -671,21 +691,21 @@ export default function AdminDashboardPage() {
         {activeTab === 'products' && (
           <div className="space-y-4">
             {/* Product Action Bar */}
-            <div className="p-4 rounded-2xl bg-slate-900/90 border border-white/10 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+            <div className="p-4 bg-white border border-neutral-200 rounded flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 shadow-xs">
               <div className="flex flex-wrap items-center gap-3 flex-1">
                 <div className="relative min-w-[260px] flex-1 max-w-md">
-                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
                   <input
                     type="text"
                     value={productSearch}
                     onChange={(e) => setProductSearch(e.target.value)}
                     placeholder="Tìm theo Tên sản phẩm, Thương hiệu..."
-                    className="w-full bg-slate-950 border border-white/10 focus:border-cyan-400 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 outline-none transition"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded pl-9 pr-4 py-2 text-xs text-black placeholder-neutral-400 outline-none font-medium"
                   />
                   {productSearch && (
                     <button
                       onClick={() => setProductSearch('')}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
@@ -695,12 +715,12 @@ export default function AdminDashboardPage() {
                 <select
                   value={productCategoryFilter}
                   onChange={(e) => setProductCategoryFilter(e.target.value)}
-                  className="bg-slate-950 border border-white/10 text-xs text-white rounded-xl px-3 py-2 outline-none focus:border-cyan-400"
+                  className="bg-neutral-50 border border-neutral-300 text-xs text-black rounded px-3 py-2 outline-none font-bold uppercase"
                 >
-                  <option value="ALL">Tất cả danh mục</option>
+                  <option value="ALL">TẤT CẢ DANH MỤC</option>
                   {DEMO_CATEGORIES.map((c) => (
                     <option key={c.id} value={c.slug}>
-                      {c.name}
+                      {c.name.toUpperCase()}
                     </option>
                   ))}
                 </select>
@@ -709,14 +729,14 @@ export default function AdminDashboardPage() {
               <div className="flex items-center gap-2 self-end md:self-auto">
                 <button
                   onClick={() => setIsCreateProductOpen(true)}
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-lg shadow-cyan-500/20 transition active:scale-95"
+                  className="px-5 py-2.5 bg-[#00B2FE] hover:bg-[#009ce0] text-black font-black uppercase text-xs tracking-wider rounded border border-black shadow-[2px_2px_0px_#000] flex items-center gap-1.5 transition active:translate-x-0.5 active:translate-y-0.5"
                 >
                   <Plus className="w-4 h-4" /> Thêm Sản Phẩm Mới
                 </button>
                 <button
                   onClick={resetProducts}
                   title="Khôi phục danh sách sản phẩm mặc định"
-                  className="p-2 rounded-xl bg-slate-950 border border-white/10 hover:bg-slate-800 text-slate-400 hover:text-white transition"
+                  className="p-2.5 bg-white border border-neutral-300 hover:bg-neutral-100 text-neutral-600 hover:text-black rounded transition"
                 >
                   <RefreshCw className="w-4 h-4" />
                 </button>
@@ -724,35 +744,35 @@ export default function AdminDashboardPage() {
             </div>
 
             {/* Products Table */}
-            <div className="rounded-2xl bg-slate-900/90 border border-white/10 overflow-hidden shadow-2xl">
+            <div className="bg-white border border-neutral-200 rounded overflow-hidden shadow-xs">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-b border-white/10 bg-slate-950/60 text-slate-400 font-bold uppercase tracking-wider text-[11px]">
+                    <tr className="bg-black text-white font-black uppercase tracking-wider text-[11px]">
                       <th className="py-3.5 px-4">Ảnh &amp; Tên Sản Phẩm</th>
                       <th className="py-3.5 px-4">Danh Mục</th>
-                      <th className="py-3.5 px-4">Thương Hiệu</th>
+                      <th className="py-3.5 px-4">Hãng</th>
                       <th className="py-3.5 px-4">Giá Bán</th>
                       <th className="py-3.5 px-4">Tồn Kho</th>
                       <th className="py-3.5 px-4">Bảo Hành</th>
                       <th className="py-3.5 px-4 text-right">Thao Tác CRUD</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5">
+                  <tbody className="divide-y divide-neutral-200">
                     {filteredProducts.length === 0 ? (
                       <tr>
-                        <td colSpan={7} className="py-12 text-center text-slate-400">
-                          <Package className="w-10 h-10 mx-auto text-slate-600 mb-2 opacity-50" />
+                        <td colSpan={7} className="py-12 text-center text-neutral-500 font-bold uppercase text-xs">
+                          <Package className="w-8 h-8 mx-auto text-neutral-400 mb-2 opacity-50" />
                           Không tìm thấy sản phẩm nào.
                         </td>
                       </tr>
                     ) : (
                       filteredProducts.map((product) => (
-                        <tr key={product.id} className="hover:bg-white/[0.03] transition">
+                        <tr key={product.id} className="hover:bg-neutral-50 transition">
                           {/* Image & Name */}
                           <td className="py-3.5 px-4">
-                            <div className="flex items-center gap-3 max-w-[340px]">
-                              <div className="relative w-12 h-12 rounded-xl bg-black border border-white/10 overflow-hidden shrink-0">
+                            <div className="flex items-center gap-3 max-w-[360px]">
+                              <div className="relative w-12 h-12 rounded bg-neutral-100 border border-neutral-200 overflow-hidden shrink-0">
                                 {product.thumbnail && (
                                   <Image
                                     src={product.thumbnail}
@@ -767,32 +787,36 @@ export default function AdminDashboardPage() {
                                 <Link
                                   href={`/products/${product.slug}`}
                                   target="_blank"
-                                  className="font-bold text-white hover:text-cyan-400 transition truncate block"
+                                  className="font-black uppercase text-black hover:text-[#00B2FE] transition truncate block tracking-tight"
                                 >
                                   {product.name}
                                 </Link>
-                                <span className="text-[10px] text-slate-500 font-mono">ID: #{product.id}</span>
+                                <span className="text-[10px] text-neutral-400 font-mono font-bold">
+                                  SKU: #{product.id}
+                                </span>
                               </div>
                             </div>
                           </td>
 
                           {/* Category */}
                           <td className="py-3.5 px-4 whitespace-nowrap">
-                            <span className="px-2 py-1 rounded-md bg-slate-950 border border-white/10 text-slate-300 font-medium text-[11px]">
+                            <span className="px-2 py-0.5 bg-neutral-100 border border-neutral-300 text-black font-black uppercase text-[10px] rounded-xs">
                               {product.categoryName || product.categorySlug}
                             </span>
                           </td>
 
                           {/* Brand */}
-                          <td className="py-3.5 px-4 whitespace-nowrap font-bold text-cyan-300">
-                            {product.brandName}
+                          <td className="py-3.5 px-4 whitespace-nowrap font-black uppercase text-black">
+                            <span className="px-1.5 py-0.5 bg-[#00B2FE] text-black font-black text-[10px] rounded-xs">
+                              {product.brandName}
+                            </span>
                           </td>
 
                           {/* Price */}
                           <td className="py-3.5 px-4 whitespace-nowrap">
-                            <p className="font-black text-white">{formatPrice(product.minPrice, currency)}</p>
+                            <p className="font-black text-black text-sm">{formatPrice(product.minPrice, currency)}</p>
                             {product.originalPrice > product.minPrice && (
-                              <p className="text-[10px] text-slate-500 line-through">
+                              <p className="text-[10px] text-neutral-400 line-through font-bold">
                                 {formatPrice(product.originalPrice, currency)}
                               </p>
                             )}
@@ -801,18 +825,18 @@ export default function AdminDashboardPage() {
                           {/* Stock */}
                           <td className="py-3.5 px-4 whitespace-nowrap">
                             {product.totalStock <= 5 ? (
-                              <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[11px] font-bold">
+                              <span className="px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-300 text-[11px] font-black uppercase">
                                 Sắp hết: {product.totalStock} cái
                               </span>
                             ) : (
-                              <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[11px] font-bold">
+                              <span className="px-2 py-0.5 rounded bg-green-100 text-green-800 border border-green-300 text-[11px] font-black uppercase">
                                 Còn {product.totalStock} cái
                               </span>
                             )}
                           </td>
 
                           {/* Warranty */}
-                          <td className="py-3.5 px-4 whitespace-nowrap text-slate-400 font-mono">
+                          <td className="py-3.5 px-4 whitespace-nowrap text-neutral-600 font-black uppercase text-xs">
                             {product.warrantyMonths} Tháng
                           </td>
 
@@ -823,23 +847,23 @@ export default function AdminDashboardPage() {
                                 href={`/products/${product.slug}`}
                                 target="_blank"
                                 title="Xem trên website"
-                                className="p-1.5 rounded-lg bg-slate-800 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 transition"
+                                className="p-2 bg-neutral-100 hover:bg-neutral-200 text-black border border-neutral-300 rounded transition"
                               >
-                                <ExternalLink className="w-4 h-4" />
+                                <ExternalLink className="w-3.5 h-3.5" />
                               </Link>
                               <button
                                 onClick={() => setEditingProduct(product)}
                                 title="Chỉnh sửa sản phẩm"
-                                className="p-1.5 rounded-lg bg-slate-800 hover:bg-blue-500/20 text-slate-300 hover:text-blue-300 transition"
+                                className="p-2 bg-neutral-100 hover:bg-blue-50 text-blue-600 border border-neutral-300 rounded transition"
                               >
-                                <Edit3 className="w-4 h-4" />
+                                <Edit3 className="w-3.5 h-3.5" />
                               </button>
                               <button
                                 onClick={() => setDeletingProductId(product.id)}
                                 title="Xóa sản phẩm"
-                                className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-500/20 text-slate-300 hover:text-rose-400 transition"
+                                className="p-2 bg-neutral-100 hover:bg-rose-50 text-rose-600 border border-neutral-300 rounded transition"
                               >
-                                <Trash2 className="w-4 h-4" />
+                                <Trash2 className="w-3.5 h-3.5" />
                               </button>
                             </div>
                           </td>
@@ -858,25 +882,25 @@ export default function AdminDashboardPage() {
         {/* ============================================================== */}
         {activeTab === 'analytics' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-slate-900 border border-white/10 space-y-4">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <Bot className="w-5 h-5 text-cyan-400" /> Hiệu Suất Trợ Lý AI Chatbot vs Website
+            <div className="p-6 bg-white border border-neutral-200 rounded shadow-xs space-y-4">
+              <h3 className="text-base font-black uppercase tracking-tight text-black flex items-center gap-2">
+                <Bot className="w-5 h-5 text-[#00B2FE]" /> Hiệu Suất Trợ Lý AI Chatbot vs Website
               </h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-neutral-500 font-medium leading-relaxed">
                 Tỷ lệ khách hàng được tư vấn và chốt đơn tự động qua khung Chatbot AI ở góc phải màn hình so với đặt hàng truyền thống qua trang Checkout.
               </p>
 
-              <div className="space-y-3 pt-2">
+              <div className="space-y-4 pt-2">
                 <div>
-                  <div className="flex justify-between text-xs font-bold mb-1">
-                    <span className="text-cyan-300">🤖 Chốt Qua Chatbot AI ({stats.chatbotOrders} đơn)</span>
-                    <span className="text-white font-mono">
+                  <div className="flex justify-between text-xs font-black uppercase tracking-wider mb-1.5">
+                    <span className="text-black">🤖 Chốt Qua Chatbot AI ({stats.chatbotOrders} đơn)</span>
+                    <span className="text-[#00B2FE] font-black">
                       {Math.round((stats.chatbotOrders / (stats.totalOrders || 1)) * 100)}%
                     </span>
                   </div>
-                  <div className="w-full h-3 bg-slate-950 rounded-full overflow-hidden border border-white/10">
+                  <div className="w-full h-3 bg-neutral-100 rounded-full overflow-hidden border border-neutral-200">
                     <div
-                      className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"
+                      className="h-full bg-[#00B2FE] rounded-full"
                       style={{
                         width: `${Math.round((stats.chatbotOrders / (stats.totalOrders || 1)) * 100)}%`,
                       }}
@@ -885,15 +909,15 @@ export default function AdminDashboardPage() {
                 </div>
 
                 <div>
-                  <div className="flex justify-between text-xs font-bold mb-1">
-                    <span className="text-purple-300">🛒 Website Checkout ({stats.checkoutOrders} đơn)</span>
-                    <span className="text-white font-mono">
+                  <div className="flex justify-between text-xs font-black uppercase tracking-wider mb-1.5">
+                    <span className="text-black">🛒 Website Checkout ({stats.checkoutOrders} đơn)</span>
+                    <span className="text-black font-black">
                       {Math.round((stats.checkoutOrders / (stats.totalOrders || 1)) * 100)}%
                     </span>
                   </div>
-                  <div className="w-full h-3 bg-slate-950 rounded-full overflow-hidden border border-white/10">
+                  <div className="w-full h-3 bg-neutral-100 rounded-full overflow-hidden border border-neutral-200">
                     <div
-                      className="h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full"
+                      className="h-full bg-black rounded-full"
                       style={{
                         width: `${Math.round((stats.checkoutOrders / (stats.totalOrders || 1)) * 100)}%`,
                       }}
@@ -903,9 +927,9 @@ export default function AdminDashboardPage() {
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-900 border border-white/10 space-y-4">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <AlertCircle className="w-5 h-5 text-amber-400" /> Cảnh Báo Tồn Kho Cần Nhập Thêm
+            <div className="p-6 bg-white border border-neutral-200 rounded shadow-xs space-y-4">
+              <h3 className="text-base font-black uppercase tracking-tight text-black flex items-center gap-2">
+                <AlertCircle className="w-5 h-5 text-amber-500" /> Cảnh Báo Tồn Kho Cần Nhập Thêm
               </h3>
               <div className="space-y-2.5">
                 {products
@@ -913,13 +937,13 @@ export default function AdminDashboardPage() {
                   .map((p) => (
                     <div
                       key={p.id}
-                      className="p-3 rounded-xl bg-slate-950 border border-white/5 flex items-center justify-between text-xs"
+                      className="p-3 bg-neutral-50 border border-neutral-200 rounded flex items-center justify-between text-xs"
                     >
                       <div className="truncate pr-2">
-                        <p className="font-bold text-white truncate">{p.name}</p>
-                        <p className="text-[10px] text-slate-400">{p.brandName} • {p.categoryName}</p>
+                        <p className="font-black uppercase text-black truncate">{p.name}</p>
+                        <p className="text-[10px] text-neutral-500 font-bold uppercase">{p.brandName} • {p.categoryName}</p>
                       </div>
-                      <span className="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono font-bold shrink-0">
+                      <span className="px-2.5 py-1 rounded bg-amber-100 text-amber-900 border border-amber-300 font-black uppercase shrink-0">
                         Còn {p.totalStock} cái
                       </span>
                     </div>
@@ -934,64 +958,64 @@ export default function AdminDashboardPage() {
       {/* MODAL: VIEW ORDER DETAILS                                      */}
       {/* ============================================================== */}
       {viewingOrder && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-2xl bg-slate-950 border border-cyan-500/30 rounded-3xl p-6 shadow-2xl space-y-5 animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="w-full max-w-2xl bg-white border-2 border-black rounded-lg p-6 shadow-[8px_8px_0px_#000] space-y-5 animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto text-xs">
+            <div className="flex items-center justify-between pb-3 border-b-2 border-black">
               <div className="flex items-center gap-2">
-                <span className="text-sm font-mono font-black text-cyan-400">#{viewingOrder.orderCode}</span>
+                <span className="text-sm font-mono font-black text-black">#{viewingOrder.orderCode}</span>
                 {getSourceBadge(viewingOrder.source)}
               </div>
               <button
                 onClick={() => setViewingOrder(null)}
-                className="p-1 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white"
+                className="p-1 text-black hover:opacity-70"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Recipient Details */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs bg-slate-900 p-4 rounded-2xl border border-white/10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-neutral-50 p-4 rounded border border-neutral-200">
               <div>
-                <span className="text-slate-400 block font-bold mb-0.5">Khách Hàng:</span>
-                <p className="font-black text-white text-sm">{viewingOrder.recipientName}</p>
-                <p className="text-cyan-400 font-mono mt-0.5">{viewingOrder.recipientPhone}</p>
+                <span className="text-neutral-500 block font-black uppercase text-[10px] mb-0.5">Khách Hàng:</span>
+                <p className="font-black uppercase text-black text-sm">{viewingOrder.recipientName}</p>
+                <p className="text-black font-mono font-bold mt-0.5">{viewingOrder.recipientPhone}</p>
               </div>
               <div>
-                <span className="text-slate-400 block font-bold mb-0.5">Địa Chỉ Giao:</span>
-                <p className="text-slate-200 leading-snug">{viewingOrder.shippingAddress}</p>
+                <span className="text-neutral-500 block font-black uppercase text-[10px] mb-0.5">Địa Chỉ Giao:</span>
+                <p className="text-neutral-800 font-medium leading-snug">{viewingOrder.shippingAddress}</p>
               </div>
             </div>
 
             {/* Notes */}
             {viewingOrder.notes && (
-              <div className="p-3 rounded-xl bg-slate-900 border border-white/5 text-xs">
-                <span className="text-slate-400 font-bold block mb-0.5">Ghi Chú Đơn Hàng:</span>
-                <p className="text-slate-300 italic">{viewingOrder.notes}</p>
+              <div className="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                <span className="text-neutral-500 font-black uppercase text-[10px] block mb-0.5">Ghi Chú Đơn:</span>
+                <p className="text-neutral-800 font-medium italic">{viewingOrder.notes}</p>
               </div>
             )}
 
             {/* Items */}
             <div className="space-y-2">
-              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Danh Sách Sản Phẩm</h4>
-              <div className="divide-y divide-white/5 border border-white/10 rounded-2xl p-2 bg-slate-900">
+              <h4 className="font-black uppercase text-neutral-500 tracking-wider text-[11px]">Sản Phẩm Trong Đơn</h4>
+              <div className="divide-y divide-neutral-200 border border-neutral-200 rounded p-2 bg-neutral-50">
                 {viewingOrder.items.map((item, idx) => (
-                  <div key={idx} className="py-2.5 px-3 flex items-center justify-between gap-3 text-xs">
+                  <div key={idx} className="py-2.5 px-3 flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
                       {item.imageUrl && (
-                        <div className="relative w-10 h-10 rounded-lg bg-black overflow-hidden shrink-0 border border-white/10">
+                        <div className="relative w-10 h-10 rounded bg-white overflow-hidden shrink-0 border border-neutral-200">
                           <Image src={item.imageUrl} alt={item.productName} fill sizes="40px" className="object-cover" />
                         </div>
                       )}
                       <div className="min-w-0">
-                        <p className="font-bold text-white truncate">{item.productName}</p>
+                        <p className="font-black uppercase text-black truncate">{item.productName}</p>
                         {item.variantName && (
-                          <p className="text-[10px] text-slate-400 truncate">{item.variantName}</p>
+                          <p className="text-[10px] text-neutral-500 truncate">{item.variantName}</p>
                         )}
                       </div>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="font-bold text-white">{formatPrice(item.price, currency)}</p>
-                      <p className="text-[11px] text-cyan-400 font-mono">x{item.quantity}</p>
+                      <p className="font-black text-black">{formatPrice(item.price, currency)}</p>
+                      <p className="text-[11px] text-neutral-500 font-mono font-bold">x{item.quantity}</p>
                     </div>
                   </div>
                 ))}
@@ -999,14 +1023,14 @@ export default function AdminDashboardPage() {
             </div>
 
             {/* Financial Summary */}
-            <div className="pt-2 border-t border-white/10 flex items-center justify-between text-sm">
-              <span className="font-bold text-slate-300">Tổng Thanh Toán:</span>
-              <span className="text-xl font-black text-cyan-400">{formatPrice(viewingOrder.finalAmount, currency)}</span>
+            <div className="pt-2 border-t-2 border-black flex items-center justify-between text-sm">
+              <span className="font-black uppercase text-neutral-700">Tổng Thanh Toán:</span>
+              <span className="text-xl font-black text-black">{formatPrice(viewingOrder.finalAmount, currency)}</span>
             </div>
 
             {/* Status Change Selector inside Modal */}
-            <div className="flex items-center justify-between pt-2 border-t border-white/10">
-              <span className="text-xs font-bold text-slate-400">Cập nhật trạng thái:</span>
+            <div className="flex items-center justify-between pt-2 border-t border-neutral-200">
+              <span className="font-black uppercase text-neutral-600 text-xs">Cập nhật trạng thái:</span>
               <select
                 value={viewingOrder.orderStatus}
                 onChange={(e) => {
@@ -1015,7 +1039,7 @@ export default function AdminDashboardPage() {
                   setViewingOrder({ ...viewingOrder, orderStatus: newStatus });
                   showToast(`Đã đổi trạng thái đơn #${viewingOrder.orderCode}`);
                 }}
-                className="bg-slate-900 border border-white/20 text-xs text-white rounded-xl px-3 py-1.5 focus:border-cyan-400 outline-none font-bold"
+                className="bg-white border-2 border-black text-xs text-black rounded px-3 py-1.5 focus:border-[#00B2FE] outline-none font-black uppercase cursor-pointer"
               >
                 <option value="PENDING">Chờ xử lý</option>
                 <option value="CONFIRMED">Đã duyệt</option>
@@ -1033,33 +1057,33 @@ export default function AdminDashboardPage() {
       {/* MODAL: CREATE ORDER (MANUAL)                                   */}
       {/* ============================================================== */}
       {isCreateOrderOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
           <form
             onSubmit={handleCreateOrderSubmit}
-            className="w-full max-w-lg bg-slate-950 border border-cyan-500/30 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-150"
+            className="w-full max-w-lg bg-white border-2 border-black rounded-lg p-6 shadow-[8px_8px_0px_#000] space-y-4 max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-150 text-xs"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-white/10">
-              <h3 className="text-base font-black text-white flex items-center gap-2">
-                <Plus className="w-5 h-5 text-cyan-400" /> Tạo Đơn Hàng Mới Cho Khách
+            <div className="flex items-center justify-between pb-3 border-b-2 border-black">
+              <h3 className="text-sm font-black uppercase text-black flex items-center gap-1.5">
+                <Plus className="w-4 h-4 text-[#00B2FE]" /> Tạo Đơn Hàng Mới Cho Khách
               </h3>
               <button
                 type="button"
                 onClick={() => setIsCreateOrderOpen(false)}
-                className="p-1 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white"
+                className="p-1 text-black hover:opacity-70"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-3">
               <div>
-                <label className="block text-slate-300 font-bold mb-1">
-                  Chọn Sản Phẩm Trong Kho <span className="text-rose-400">*</span>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">
+                  Chọn Sản Phẩm Trong Kho <span className="text-rose-600">*</span>
                 </label>
                 <select
                   value={newOrderSelectedProdId}
                   onChange={(e) => setNewOrderSelectedProdId(Number(e.target.value))}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium outline-none"
                 >
                   {products.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -1071,31 +1095,31 @@ export default function AdminDashboardPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">Số Lượng</label>
+                  <label className="block text-black font-black uppercase text-[11px] mb-1">Số Lượng</label>
                   <input
                     type="number"
                     min={1}
                     value={newOrderQty}
                     onChange={(e) => setNewOrderQty(Math.max(1, parseInt(e.target.value) || 1))}
-                    className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-bold outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">Hình Thức Thanh Toán</label>
+                  <label className="block text-black font-black uppercase text-[11px] mb-1">Hình Thức Thanh Toán</label>
                   <select
                     value={newOrderPayment}
                     onChange={(e) => setNewOrderPayment(e.target.value as 'COD' | 'BANK_TRANSFER')}
-                    className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-bold outline-none"
                   >
                     <option value="COD">Thanh toán khi nhận (COD)</option>
-                    <option value="BANK_TRANSFER">Chuyển khoản (Đã thanh toán)</option>
+                    <option value="BANK_TRANSFER">Chuyển khoản (Đã CK)</option>
                   </select>
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold mb-1">
-                  Họ Tên Khách Hàng <span className="text-rose-400">*</span>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">
+                  Họ Tên Khách Hàng <span className="text-rose-600">*</span>
                 </label>
                 <input
                   type="text"
@@ -1103,13 +1127,13 @@ export default function AdminDashboardPage() {
                   placeholder="Ví dụ: Hoàng Minh Trí"
                   value={newOrderCustomer}
                   onChange={(e) => setNewOrderCustomer(e.target.value)}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white placeholder-slate-500 outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium placeholder-neutral-400 outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold mb-1">
-                  Số Điện Thoại <span className="text-rose-400">*</span>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">
+                  Số Điện Thoại <span className="text-rose-600">*</span>
                 </label>
                 <input
                   type="tel"
@@ -1117,13 +1141,13 @@ export default function AdminDashboardPage() {
                   placeholder="Ví dụ: 0988112233"
                   value={newOrderPhone}
                   onChange={(e) => setNewOrderPhone(e.target.value)}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white placeholder-slate-500 outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium placeholder-neutral-400 outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold mb-1">
-                  Địa Chỉ Giao Hàng <span className="text-rose-400">*</span>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">
+                  Địa Chỉ Giao Hàng <span className="text-rose-600">*</span>
                 </label>
                 <input
                   type="text"
@@ -1131,33 +1155,33 @@ export default function AdminDashboardPage() {
                   placeholder="Số nhà, đường, quận/huyện, tỉnh thành..."
                   value={newOrderAddress}
                   onChange={(e) => setNewOrderAddress(e.target.value)}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white placeholder-slate-500 outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium placeholder-neutral-400 outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold mb-1">Ghi Chú</label>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">Ghi Chú</label>
                 <input
                   type="text"
                   placeholder="Yêu cầu kiểm tra máy, quà tặng..."
                   value={newOrderNotes}
                   onChange={(e) => setNewOrderNotes(e.target.value)}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white placeholder-slate-500 outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium placeholder-neutral-400 outline-none"
                 />
               </div>
             </div>
 
-            <div className="pt-3 border-t border-white/10 flex items-center justify-end gap-2">
+            <div className="pt-3 border-t-2 border-black flex items-center justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setIsCreateOrderOpen(false)}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold"
+                className="px-4 py-2 bg-neutral-100 hover:bg-neutral-200 text-black border border-neutral-300 font-black uppercase text-xs rounded"
               >
                 Hủy
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:brightness-110 text-slate-950 font-black text-xs uppercase tracking-wider"
+                className="px-5 py-2.5 bg-[#00B2FE] hover:bg-[#009ce0] text-black font-black uppercase text-xs tracking-wider rounded border border-black shadow-[2px_2px_0px_#000]"
               >
                 Lưu Đơn Hàng
               </button>
@@ -1170,70 +1194,70 @@ export default function AdminDashboardPage() {
       {/* MODAL: EDIT ORDER                                              */}
       {/* ============================================================== */}
       {editingOrder && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
           <form
             onSubmit={handleEditOrderSubmit}
-            className="w-full max-w-lg bg-slate-950 border border-cyan-500/30 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-150"
+            className="w-full max-w-lg bg-white border-2 border-black rounded-lg p-6 shadow-[8px_8px_0px_#000] space-y-4 max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-150 text-xs"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-white/10">
-              <h3 className="text-base font-black text-white flex items-center gap-2">
-                <Edit3 className="w-5 h-5 text-blue-400" /> Sửa Thông Tin Đơn #{editingOrder.orderCode}
+            <div className="flex items-center justify-between pb-3 border-b-2 border-black">
+              <h3 className="text-sm font-black uppercase text-black flex items-center gap-1.5">
+                <Edit3 className="w-4 h-4 text-blue-600" /> Sửa Thông Tin Đơn #{editingOrder.orderCode}
               </h3>
               <button
                 type="button"
                 onClick={() => setEditingOrder(null)}
-                className="p-1 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white"
+                className="p-1 text-black hover:opacity-70"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-3">
               <div>
-                <label className="block text-slate-300 font-bold mb-1">Tên Người Nhận</label>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">Tên Người Nhận</label>
                 <input
                   type="text"
                   required
                   value={editingOrder.recipientName}
                   onChange={(e) => setEditingOrder({ ...editingOrder, recipientName: e.target.value })}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold mb-1">Số Điện Thoại</label>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">Số Điện Thoại</label>
                 <input
                   type="tel"
                   required
                   value={editingOrder.recipientPhone}
                   onChange={(e) => setEditingOrder({ ...editingOrder, recipientPhone: e.target.value })}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold mb-1">Địa Chỉ Nhận Hàng</label>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">Địa Chỉ Nhận Hàng</label>
                 <input
                   type="text"
                   required
                   value={editingOrder.shippingAddress}
                   onChange={(e) => setEditingOrder({ ...editingOrder, shippingAddress: e.target.value })}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">Trạng Thái Đơn</label>
+                  <label className="block text-black font-black uppercase text-[11px] mb-1">Trạng Thái Đơn</label>
                   <select
                     value={editingOrder.orderStatus}
                     onChange={(e) =>
                       setEditingOrder({ ...editingOrder, orderStatus: e.target.value as OrderStatus })
                     }
-                    className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-bold uppercase outline-none"
                   >
                     <option value="PENDING">Chờ xử lý</option>
-                    <option value="CONFIRMED">Đã xác nhận</option>
+                    <option value="CONFIRMED">Đã duyệt</option>
                     <option value="PROCESSING">Đang đóng gói</option>
                     <option value="SHIPPING">Đang giao hàng</option>
                     <option value="DELIVERED">Đã giao thành công</option>
@@ -1242,13 +1266,13 @@ export default function AdminDashboardPage() {
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">Trạng Thái Thanh Toán</label>
+                  <label className="block text-black font-black uppercase text-[11px] mb-1">Trạng Thái Thanh Toán</label>
                   <select
                     value={editingOrder.paymentStatus}
                     onChange={(e) =>
                       setEditingOrder({ ...editingOrder, paymentStatus: e.target.value as PaymentStatus })
                     }
-                    className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-bold uppercase outline-none"
                   >
                     <option value="PENDING">Chờ thanh toán</option>
                     <option value="COMPLETED">Đã thanh toán</option>
@@ -1259,29 +1283,29 @@ export default function AdminDashboardPage() {
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold mb-1">Ghi Chú</label>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">Ghi Chú</label>
                 <textarea
                   rows={2}
                   value={editingOrder.notes || ''}
                   onChange={(e) => setEditingOrder({ ...editingOrder, notes: e.target.value })}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium outline-none"
                 />
               </div>
             </div>
 
-            <div className="pt-3 border-t border-white/10 flex items-center justify-end gap-2">
+            <div className="pt-3 border-t-2 border-black flex items-center justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setEditingOrder(null)}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold"
+                className="px-4 py-2 bg-neutral-100 hover:bg-neutral-200 text-black border border-neutral-300 font-black uppercase text-xs rounded"
               >
                 Hủy
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider"
+                className="px-5 py-2.5 bg-black hover:bg-neutral-800 text-white font-black uppercase text-xs tracking-wider rounded"
               >
-                Cập Nhật
+                Cập Nhật Đơn Hàng
               </button>
             </div>
           </form>
@@ -1292,19 +1316,19 @@ export default function AdminDashboardPage() {
       {/* MODAL: DELETE ORDER CONFIRMATION                               */}
       {/* ============================================================== */}
       {deletingOrderId && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-sm bg-slate-950 border border-rose-500/40 rounded-3xl p-6 shadow-2xl space-y-4 text-center">
-            <div className="w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="w-full max-w-sm bg-white border-2 border-black rounded-lg p-6 shadow-[8px_8px_0px_#000] space-y-4 text-center">
+            <div className="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto border border-rose-300">
               <Trash2 className="w-6 h-6" />
             </div>
-            <h4 className="text-base font-bold text-white">Xác Nhận Xóa Đơn Hàng?</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <h4 className="text-base font-black uppercase text-black">Xác Nhận Xóa Đơn Hàng?</h4>
+            <p className="text-xs text-neutral-600 font-medium leading-relaxed">
               Bạn có chắc chắn muốn xóa đơn hàng này khỏi hệ thống? Thao tác này không thể hoàn tác.
             </p>
             <div className="flex items-center justify-center gap-3 pt-2">
               <button
                 onClick={() => setDeletingOrderId(null)}
-                className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold hover:bg-slate-700"
+                className="px-4 py-2 bg-neutral-100 text-black border border-neutral-300 font-black uppercase text-xs rounded hover:bg-neutral-200"
               >
                 Hủy bỏ
               </button>
@@ -1314,7 +1338,7 @@ export default function AdminDashboardPage() {
                   setDeletingOrderId(null);
                   showToast('Đã xóa đơn hàng thành công');
                 }}
-                className="px-5 py-2 rounded-xl bg-rose-500 hover:bg-rose-400 text-white text-xs font-black shadow-lg shadow-rose-500/20"
+                className="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white font-black uppercase text-xs rounded"
               >
                 Xác Nhận Xóa
               </button>
@@ -1327,28 +1351,28 @@ export default function AdminDashboardPage() {
       {/* MODAL: CREATE PRODUCT                                          */}
       {/* ============================================================== */}
       {isCreateProductOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
           <form
             onSubmit={handleCreateProductSubmit}
-            className="w-full max-w-lg bg-slate-950 border border-cyan-500/30 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-150"
+            className="w-full max-w-lg bg-white border-2 border-black rounded-lg p-6 shadow-[8px_8px_0px_#000] space-y-4 max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-150 text-xs"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-white/10">
-              <h3 className="text-base font-black text-white flex items-center gap-2">
-                <Plus className="w-5 h-5 text-cyan-400" /> Thêm Sản Phẩm Mới Vào Kho
+            <div className="flex items-center justify-between pb-3 border-b-2 border-black">
+              <h3 className="text-sm font-black uppercase text-black flex items-center gap-1.5">
+                <Plus className="w-4 h-4 text-[#00B2FE]" /> Thêm Sản Phẩm Mới Vào Kho
               </h3>
               <button
                 type="button"
                 onClick={() => setIsCreateProductOpen(false)}
-                className="p-1 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white"
+                className="p-1 text-black hover:opacity-70"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-3">
               <div>
-                <label className="block text-slate-300 font-bold mb-1">
-                  Tên Sản Phẩm <span className="text-rose-400">*</span>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">
+                  Tên Sản Phẩm <span className="text-rose-600">*</span>
                 </label>
                 <input
                   type="text"
@@ -1356,36 +1380,36 @@ export default function AdminDashboardPage() {
                   placeholder="Ví dụ: Card Đồ Họa ASUS ROG Matrix RTX 4090 Platinum"
                   value={newProdName}
                   onChange={(e) => setNewProdName(e.target.value)}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">Danh Mục</label>
+                  <label className="block text-black font-black uppercase text-[11px] mb-1">Danh Mục</label>
                   <select
                     value={newProdCategory}
                     onChange={(e) => setNewProdCategory(e.target.value)}
-                    className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-bold uppercase outline-none"
                   >
                     {DEMO_CATEGORIES.map((c) => (
                       <option key={c.id} value={c.slug}>
-                        {c.name}
+                        {c.name.toUpperCase()}
                       </option>
                     ))}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">Thương Hiệu</label>
+                  <label className="block text-black font-black uppercase text-[11px] mb-1">Thương Hiệu</label>
                   <select
                     value={newProdBrand}
                     onChange={(e) => setNewProdBrand(e.target.value)}
-                    className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-bold uppercase outline-none"
                   >
                     {DEMO_BRANDS.map((b) => (
                       <option key={b.id} value={b.name}>
-                        {b.name}
+                        {b.name.toUpperCase()}
                       </option>
                     ))}
                   </select>
@@ -1394,75 +1418,75 @@ export default function AdminDashboardPage() {
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">Giá Bán ($)</label>
+                  <label className="block text-black font-black uppercase text-[11px] mb-1">Giá Bán ($)</label>
                   <input
                     type="number"
                     step="0.01"
                     required
                     value={newProdPrice}
                     onChange={(e) => setNewProdPrice(e.target.value)}
-                    className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-bold outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">Giá Gốc ($)</label>
+                  <label className="block text-black font-black uppercase text-[11px] mb-1">Giá Gốc ($)</label>
                   <input
                     type="number"
                     step="0.01"
                     value={newProdOrigPrice}
                     onChange={(e) => setNewProdOrigPrice(e.target.value)}
-                    className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-bold outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">Tồn Kho (Số lượng)</label>
+                  <label className="block text-black font-black uppercase text-[11px] mb-1">Tồn Kho</label>
                   <input
                     type="number"
                     required
                     value={newProdStock}
                     onChange={(e) => setNewProdStock(e.target.value)}
-                    className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-bold outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold mb-1">Link Ảnh Thumbnail (URL)</label>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">Link Ảnh Thumbnail (URL)</label>
                 <input
                   type="url"
                   required
                   placeholder="https://images.unsplash.com/..."
                   value={newProdThumb}
                   onChange={(e) => setNewProdThumb(e.target.value)}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold mb-1">Mô Tả Sản Phẩm</label>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">Mô Tả Sản Phẩm</label>
                 <textarea
                   rows={2}
                   placeholder="Thông số, tính năng nổi bật..."
                   value={newProdDesc}
                   onChange={(e) => setNewProdDesc(e.target.value)}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium outline-none"
                 />
               </div>
             </div>
 
-            <div className="pt-3 border-t border-white/10 flex items-center justify-end gap-2">
+            <div className="pt-3 border-t-2 border-black flex items-center justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setIsCreateProductOpen(false)}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold"
+                className="px-4 py-2 bg-neutral-100 hover:bg-neutral-200 text-black border border-neutral-300 font-black uppercase text-xs rounded"
               >
                 Hủy
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:brightness-110 text-slate-950 font-black text-xs uppercase tracking-wider"
+                className="px-5 py-2.5 bg-[#00B2FE] hover:bg-[#009ce0] text-black font-black uppercase text-xs tracking-wider rounded border border-black shadow-[2px_2px_0px_#000]"
               >
-                Thêm Vào Danh Mục
+                Thêm Vào Kho
               </button>
             </div>
           </form>
@@ -1473,39 +1497,39 @@ export default function AdminDashboardPage() {
       {/* MODAL: EDIT PRODUCT                                            */}
       {/* ============================================================== */}
       {editingProduct && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
           <form
             onSubmit={handleEditProductSubmit}
-            className="w-full max-w-lg bg-slate-950 border border-cyan-500/30 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-150"
+            className="w-full max-w-lg bg-white border-2 border-black rounded-lg p-6 shadow-[8px_8px_0px_#000] space-y-4 max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-150 text-xs"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-white/10">
-              <h3 className="text-base font-black text-white flex items-center gap-2">
-                <Edit3 className="w-5 h-5 text-blue-400" /> Sửa Sản Phẩm #{editingProduct.id}
+            <div className="flex items-center justify-between pb-3 border-b-2 border-black">
+              <h3 className="text-sm font-black uppercase text-black flex items-center gap-1.5">
+                <Edit3 className="w-4 h-4 text-blue-600" /> Sửa Sản Phẩm #{editingProduct.id}
               </h3>
               <button
                 type="button"
                 onClick={() => setEditingProduct(null)}
-                className="p-1 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white"
+                className="p-1 text-black hover:opacity-70"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-3">
               <div>
-                <label className="block text-slate-300 font-bold mb-1">Tên Sản Phẩm</label>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">Tên Sản Phẩm</label>
                 <input
                   type="text"
                   required
                   value={editingProduct.name}
                   onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">Giá Bán ($)</label>
+                  <label className="block text-black font-black uppercase text-[11px] mb-1">Giá Bán ($)</label>
                   <input
                     type="number"
                     step="0.01"
@@ -1514,11 +1538,11 @@ export default function AdminDashboardPage() {
                     onChange={(e) =>
                       setEditingProduct({ ...editingProduct, minPrice: parseFloat(e.target.value) || 0 })
                     }
-                    className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-bold outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">Giá Gốc ($)</label>
+                  <label className="block text-black font-black uppercase text-[11px] mb-1">Giá Gốc ($)</label>
                   <input
                     type="number"
                     step="0.01"
@@ -1526,11 +1550,11 @@ export default function AdminDashboardPage() {
                     onChange={(e) =>
                       setEditingProduct({ ...editingProduct, originalPrice: parseFloat(e.target.value) || 0 })
                     }
-                    className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-bold outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">Tồn Kho</label>
+                  <label className="block text-black font-black uppercase text-[11px] mb-1">Tồn Kho</label>
                   <input
                     type="number"
                     required
@@ -1538,43 +1562,43 @@ export default function AdminDashboardPage() {
                     onChange={(e) =>
                       setEditingProduct({ ...editingProduct, totalStock: parseInt(e.target.value) || 0 })
                     }
-                    className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                    className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-bold outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold mb-1">Link Ảnh Thumbnail (URL)</label>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">Link Ảnh Thumbnail (URL)</label>
                 <input
                   type="url"
                   value={editingProduct.thumbnail || ''}
                   onChange={(e) => setEditingProduct({ ...editingProduct, thumbnail: e.target.value })}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold mb-1">Mô Tả Ngắn</label>
+                <label className="block text-black font-black uppercase text-[11px] mb-1">Mô Tả Ngắn</label>
                 <textarea
                   rows={3}
                   value={editingProduct.shortDescription || ''}
                   onChange={(e) => setEditingProduct({ ...editingProduct, shortDescription: e.target.value })}
-                  className="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-white outline-none"
+                  className="w-full bg-neutral-50 border border-neutral-300 focus:border-black rounded px-3 py-2 text-black font-medium outline-none"
                 />
               </div>
             </div>
 
-            <div className="pt-3 border-t border-white/10 flex items-center justify-end gap-2">
+            <div className="pt-3 border-t-2 border-black flex items-center justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setEditingProduct(null)}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold"
+                className="px-4 py-2 bg-neutral-100 hover:bg-neutral-200 text-black border border-neutral-300 font-black uppercase text-xs rounded"
               >
                 Hủy
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider"
+                className="px-5 py-2.5 bg-black hover:bg-neutral-800 text-white font-black uppercase text-xs tracking-wider rounded"
               >
                 Lưu Thay Đổi
               </button>
@@ -1587,19 +1611,19 @@ export default function AdminDashboardPage() {
       {/* MODAL: DELETE PRODUCT CONFIRMATION                             */}
       {/* ============================================================== */}
       {deletingProductId && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-sm bg-slate-950 border border-rose-500/40 rounded-3xl p-6 shadow-2xl space-y-4 text-center">
-            <div className="w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="w-full max-w-sm bg-white border-2 border-black rounded-lg p-6 shadow-[8px_8px_0px_#000] space-y-4 text-center">
+            <div className="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto border border-rose-300">
               <Trash2 className="w-6 h-6" />
             </div>
-            <h4 className="text-base font-bold text-white">Xác Nhận Xóa Sản Phẩm?</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <h4 className="text-base font-black uppercase text-black">Xác Nhận Xóa Sản Phẩm?</h4>
+            <p className="text-xs text-neutral-600 font-medium leading-relaxed">
               Sản phẩm này sẽ bị xóa khỏi hệ thống quản trị và danh sách bán trên cửa hàng.
             </p>
             <div className="flex items-center justify-center gap-3 pt-2">
               <button
                 onClick={() => setDeletingProductId(null)}
-                className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold hover:bg-slate-700"
+                className="px-4 py-2 bg-neutral-100 text-black border border-neutral-300 font-black uppercase text-xs rounded hover:bg-neutral-200"
               >
                 Hủy bỏ
               </button>
@@ -1609,7 +1633,7 @@ export default function AdminDashboardPage() {
                   setDeletingProductId(null);
                   showToast('Đã xóa sản phẩm khỏi kho');
                 }}
-                className="px-5 py-2 rounded-xl bg-rose-500 hover:bg-rose-400 text-white text-xs font-black shadow-lg shadow-rose-500/20"
+                className="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white font-black uppercase text-xs rounded"
               >
                 Xác Nhận Xóa
               </button>
