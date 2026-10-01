@@ -1,102 +1,51 @@
 import React from 'react';
-import Link from 'next/link';
-import { ArrowRight, Sparkles, TrendingUp, Award, Zap } from 'lucide-react';
 import HeroBanner from '@/components/home/HeroBanner';
-import FlashSale from '@/components/home/FlashSale';
-import CategoryGrid from '@/components/home/CategoryGrid';
-import ProductCard from '@/components/product/ProductCard';
-import { productService } from '@/services/product.service';
-import { DEMO_CATEGORIES, DEMO_PRODUCTS } from '@/lib/demo-data';
+import ValuePropsBar from '@/components/home/ValuePropsBar';
+import CategoryBlock from '@/components/home/CategoryBlock';
+import CrowdFavorites from '@/components/home/CrowdFavorites';
+import EditorialBook from '@/components/home/EditorialBook';
+import BringOnTheChill from '@/components/home/BringOnTheChill';
+import EditorialFootball from '@/components/home/EditorialFootball';
+import HalloweenSection from '@/components/home/HalloweenSection';
+import PhilanthropySection from '@/components/home/PhilanthropySection';
+import ParentReviews from '@/components/home/ParentReviews';
+import BeastInTheWild from '@/components/home/BeastInTheWild';
 
-export default async function HomePage() {
-  let featuredProducts = DEMO_PRODUCTS;
-  let categories = DEMO_CATEGORIES;
-
-  try {
-    const [featRes, catRes] = await Promise.allSettled([
-      productService.getFeaturedProducts(),
-      productService.getCategories(),
-    ]);
-
-    if (featRes.status === 'fulfilled' && featRes.value?.data?.length > 0) {
-      featuredProducts = featRes.value.data;
-    }
-    if (catRes.status === 'fulfilled' && catRes.value?.data?.length > 0) {
-      categories = catRes.value.data;
-    }
-  } catch {
-    // Graceful fallback to demo data
-  }
-
+export default function HomePage() {
   return (
-    <div className="space-y-12">
-      {/* 1. Hero Banner */}
+    <div className="flex flex-col w-full">
+      {/* 1. XL Hero Banner: MrBeast Football Drop */}
       <HeroBanner />
 
-      {/* 2. Category Grid */}
-      <CategoryGrid categories={categories} />
+      {/* 2. Value Props Bar: Free Ship $75+ | 30-Day Returns | 1% Donated */}
+      <ValuePropsBar />
 
-      {/* 3. Flash Sale */}
-      <FlashSale products={featuredProducts} />
+      {/* 3. Category Block (4 Grid Cards: TOYS, APPAREL, ATHLETICS, FEASTABLES) */}
+      <CategoryBlock />
 
-      {/* 4. Featured Tech Products */}
-      <section className="my-14">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
-          <div>
-            <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold tracking-widest uppercase mb-1">
-              <Sparkles className="w-4 h-4" /> Tuyển Chọn Tinh Hoa
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-              Sản Phẩm <span className="text-gradient-cyan">Bán Chạy Nhất</span>
-            </h2>
-          </div>
+      {/* 4. The Crowd Favorites (Featured Collection Grid) */}
+      <CrowdFavorites />
 
-          <div className="flex items-center gap-2">
-            <Link
-              href="/products"
-              className="px-4 py-2 rounded-xl bg-slate-900 border border-white/10 hover:border-cyan-400 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition"
-            >
-              Xem tất cả ({featuredProducts.length}+) <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
+      {/* 5. Editorial: The Book Event Of The Year */}
+      <EditorialBook />
 
-        {/* Product Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </section>
+      {/* 6. Bring On The Chill (Tabs: Halloween, Glow, Feastables, Football, Athletics) */}
+      <BringOnTheChill />
 
-      {/* 5. Technology Experience & Build PC Banner */}
-      <section className="rounded-3xl glass-panel p-8 sm:p-12 border border-white/10 relative overflow-hidden bg-gradient-to-r from-blue-950/40 via-slate-900/60 to-cyan-950/40">
-        <div className="relative z-10 max-w-2xl space-y-4">
-          <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-bold font-mono">
-            DỊCH VỤ CHUYÊN NGHIỆP
-          </span>
-          <h3 className="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
-            Xây Dựng Cấu Hình PC & Workstation Theo Yêu Cầu
-          </h3>
-          <p className="text-sm text-slate-300 leading-relaxed">
-            Đội ngũ chuyên gia E-TECH hỗ trợ tư vấn cấu hình dựng hình 3D, kiến trúc, AI training, livestream với linh kiện tuyển chọn 100% chính hãng, bảo hành tận nơi 24 tháng.
-          </p>
-          <div className="pt-2 flex flex-wrap gap-4">
-            <Link
-              href="/products?category=laptop"
-              className="px-6 py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-black font-extrabold text-xs flex items-center gap-2 transition shadow-lg shadow-cyan-400/20"
-            >
-              <Zap className="w-4 h-4" /> Tư vấn cấu hình
-            </Link>
-            <a
-              href="tel:18006868"
-              className="px-6 py-3 rounded-xl bg-slate-900 border border-white/10 hover:bg-slate-800 text-white font-semibold text-xs transition"
-            >
-              Gọi hotline: 1800 6868
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* 7. Editorial: Football Season Is Here */}
+      <EditorialFootball />
+
+      {/* 8. Halloween 2026 Collection */}
+      <HalloweenSection />
+
+      {/* 9. Philanthropy: We Give Back, In a Big Way */}
+      <PhilanthropySection />
+
+      {/* 10. Parent Reviews: 4.9 Average Star Rating */}
+      <ParentReviews />
+
+      {/* 11. Beast in the Wild: Fan Community Gallery */}
+      <BeastInTheWild />
     </div>
   );
 }

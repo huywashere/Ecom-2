@@ -1,124 +1,157 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { Cpu, ShieldCheck, Truck, RefreshCw, Headphones, CreditCard, Mail, Phone, MapPin } from 'lucide-react';
+import { ArrowRight, Check, ShieldCheck, Truck, RotateCcw, Heart } from 'lucide-react';
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      setSubscribed(true);
+    }
+  };
+
   return (
-    <footer className="w-full bg-slate-950 border-t border-white/10 mt-20 text-slate-400 text-sm">
-      {/* 4 Feature Badges */}
-      <div className="border-b border-white/10 py-8 bg-slate-900/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 flex-shrink-0">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="text-white font-bold text-sm">100% Chính Hãng</h4>
-              <p className="text-xs text-slate-500">Cam kết bảo hành tới 24 tháng</p>
-            </div>
+    <footer className="w-full bg-[#111111] text-white border-t border-neutral-800 pt-12 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        {/* 1. Value Props Icons */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-6 border-b border-neutral-800 text-center">
+          <div className="flex flex-col items-center gap-2">
+            <Truck className="w-6 h-6 text-[#00B2FE]" />
+            <h4 className="text-xs font-black uppercase tracking-wider text-white">Free US Shipping $75+</h4>
+            <p className="text-[11px] text-neutral-400">Fast worldwide delivery available</p>
           </div>
-
-          <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 flex-shrink-0">
-              <Truck className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="text-white font-bold text-sm">Giao Hỏa Tốc 2H</h4>
-              <p className="text-xs text-slate-500">Miễn phí giao hàng toàn quốc</p>
-            </div>
+          <div className="flex flex-col items-center gap-2">
+            <RotateCcw className="w-6 h-6 text-[#FF007A]" />
+            <h4 className="text-xs font-black uppercase tracking-wider text-white">30-Day Returns</h4>
+            <p className="text-[11px] text-neutral-400">Hassle-free return policy</p>
           </div>
-
-          <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 flex-shrink-0">
-              <RefreshCw className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="text-white font-bold text-sm">1 Đổi 1 Trong 30 Ngày</h4>
-              <p className="text-xs text-slate-500">Lỗi từ nhà sản xuất đổi ngay</p>
-            </div>
+          <div className="flex flex-col items-center gap-2">
+            <ShieldCheck className="w-6 h-6 text-[#FFDF00]" />
+            <h4 className="text-xs font-black uppercase tracking-wider text-white">100% Official Merch</h4>
+            <p className="text-[11px] text-neutral-400">The ONLY official store worldwide</p>
           </div>
-
-          <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 flex-shrink-0">
-              <Headphones className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="text-white font-bold text-sm">Hỗ Trợ Kỹ Thuật 24/7</h4>
-              <p className="text-xs text-slate-500">Đội ngũ kỹ thuật viên chuyên sâu</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Footer Links */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-5 gap-8">
-        {/* Brand & info */}
-        <div className="md:col-span-2 space-y-4">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-              <Cpu className="w-5 h-5 text-black font-bold" />
-            </div>
-            <span className="text-xl font-extrabold tracking-wider text-white">
-              E<span className="text-cyan-400">-TECH</span>
-            </span>
-          </Link>
-          <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
-            Hệ thống bán lẻ thiết bị công nghệ, laptop gaming, điện thoại cao cấp và linh kiện điện tử hàng đầu Việt Nam. Nơi thỏa mãn đam mê công nghệ đỉnh cao.
-          </p>
-          <div className="space-y-2 text-xs">
-            <div className="flex items-center gap-2 text-slate-300">
-              <MapPin className="w-4 h-4 text-cyan-400" /> Tầng 12, Tòa nhà Bitexco / Landmark 81, TP.HCM & Hà Nội
-            </div>
-            <div className="flex items-center gap-2 text-slate-300">
-              <Phone className="w-4 h-4 text-cyan-400" /> 1800 6868 - 0988 888 888 (Tư vấn 24/7)
-            </div>
-            <div className="flex items-center gap-2 text-slate-300">
-              <Mail className="w-4 h-4 text-cyan-400" /> cskh@e-tech.vn
-            </div>
+          <div className="flex flex-col items-center gap-2">
+            <Heart className="w-6 h-6 text-[#00B2FE]" />
+            <h4 className="text-xs font-black uppercase tracking-wider text-white">1% Donated</h4>
+            <p className="text-[11px] text-neutral-400">Supporting Beast Philanthropy</p>
           </div>
         </div>
 
-        {/* Categories */}
-        <div>
-          <h3 className="text-white font-semibold text-sm mb-3.5">Danh Mục Hot</h3>
-          <ul className="space-y-2 text-xs">
-            <li><Link href="/products?category=laptop" className="hover:text-cyan-400 transition">MacBook Pro & Air M3</Link></li>
-            <li><Link href="/products?category=laptop" className="hover:text-cyan-400 transition">Laptop Gaming ROG / Alienware</Link></li>
-            <li><Link href="/products?category=dien-thoai" className="hover:text-cyan-400 transition">iPhone 16 Series</Link></li>
-            <li><Link href="/products?category=dien-thoai" className="hover:text-cyan-400 transition">Samsung Galaxy S24 Ultra</Link></li>
-            <li><Link href="/products?category=tai-nghe" className="hover:text-cyan-400 transition">Tai nghe Sony Hi-Res Audio</Link></li>
-            <li><Link href="/products?category=ban-phim-chuot" className="hover:text-cyan-400 transition">Bàn phím cơ Custom Keychron</Link></li>
-          </ul>
-        </div>
+        {/* 2. Newsletter & Columns */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          {/* Newsletter Box */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="inline-block px-2 py-0.5 bg-[#FF007A] text-white text-[10px] font-black uppercase tracking-widest">
+              BEAST ARMY EXCLUSIVE
+            </div>
+            <h3 className="text-2xl font-black uppercase tracking-tight text-white">
+              GET 10% OFF YOUR FIRST DROP
+            </h3>
+            <p className="text-xs text-neutral-400 max-w-md leading-relaxed">
+              Sign up for early access to limited merch drops, secret restocks, and exclusive Beast giveaways.
+            </p>
 
-        {/* Policies */}
-        <div>
-          <h3 className="text-white font-semibold text-sm mb-3.5">Chính Sách & Hỗ Trợ</h3>
-          <ul className="space-y-2 text-xs">
-            <li><a href="#" className="hover:text-cyan-400 transition">Chính sách bảo hành vàng</a></li>
-            <li><a href="#" className="hover:text-cyan-400 transition">Chính sách đổi trả 30 ngày</a></li>
-            <li><a href="#" className="hover:text-cyan-400 transition">Hướng dẫn mua trả góp 0%</a></li>
-            <li><a href="#" className="hover:text-cyan-400 transition">Tra cứu tiến độ bảo hành</a></li>
-            <li><a href="#" className="hover:text-cyan-400 transition">Bảng giá thu cũ đổi mới (Trade-in)</a></li>
-          </ul>
-        </div>
+            {subscribed ? (
+              <div className="p-3 bg-neutral-900 border border-green-500/50 rounded flex items-center gap-2 text-green-400 text-xs font-bold">
+                <Check className="w-4 h-4" /> Welcome to the Beast Army! Code BEAST10 has been applied.
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex max-w-md">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="flex-1 bg-neutral-900 border border-neutral-700 px-4 py-3 text-xs text-white placeholder:text-neutral-500 focus:outline-none focus:border-white transition"
+                />
+                <button
+                  type="submit"
+                  className="px-6 py-3 bg-white hover:bg-neutral-200 text-black text-xs font-black uppercase tracking-wider transition flex items-center gap-1 shrink-0"
+                >
+                  Join <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </form>
+            )}
+          </div>
 
-        {/* Payments */}
-        <div>
-          <h3 className="text-white font-semibold text-sm mb-3.5">Phương Thức Thanh Toán</h3>
-          <p className="text-xs text-slate-400 mb-3">Hỗ trợ đa dạng phương thức thanh toán an toàn tiện lợi:</p>
-          <div className="flex flex-wrap gap-2 text-xs">
-            <span className="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-white/10 font-mono">VietQR</span>
-            <span className="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-white/10 font-mono">COD</span>
-            <span className="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-white/10 font-mono">VNPAY</span>
-            <span className="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-white/10 font-mono">MoMo</span>
-            <span className="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-white/10 font-mono">Visa/Master</span>
+          {/* Nav Columns */}
+          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+            {/* Column 1: Shop */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-black uppercase tracking-widest text-white">Shop</h4>
+              <ul className="space-y-2 text-xs text-neutral-400">
+                <li><Link href="/products?category=new" className="hover:text-white transition">New Arrivals</Link></li>
+                <li><Link href="/products?category=youth" className="hover:text-white transition">Youth Apparel</Link></li>
+                <li><Link href="/products?category=adults" className="hover:text-white transition">Adult Apparel</Link></li>
+                <li><Link href="/products?category=beast-athletics-football" className="hover:text-white transition">Football Collection</Link></li>
+                <li><Link href="/products?category=beast-athletics" className="hover:text-white transition">Sports & Fitness</Link></li>
+                <li><Link href="/products?category=feastables" className="hover:text-white transition">Feastables</Link></li>
+                <li><Link href="/products?category=mrbeast-lab" className="hover:text-white transition">MrBeast Lab</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 2: Help & Info */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-black uppercase tracking-widest text-white">Help & Info</h4>
+              <ul className="space-y-2 text-xs text-neutral-400">
+                <li><Link href="/policies/shipping-policy" className="hover:text-white transition">Shipping Policy</Link></li>
+                <li><Link href="/policies/refund-policy" className="hover:text-white transition">Refund & Returns</Link></li>
+                <li><Link href="/policies/terms-of-service" className="hover:text-white transition">Terms of Service</Link></li>
+                <li><Link href="/policies/privacy-policy" className="hover:text-white transition">Privacy Policy</Link></li>
+                <li><Link href="/policies/contact-information" className="hover:text-white transition">Contact Us</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 3: The Beast Universe */}
+            <div className="space-y-3 col-span-2 sm:col-span-1">
+              <h4 className="text-xs font-black uppercase tracking-widest text-white">The Beast Universe</h4>
+              <ul className="space-y-2 text-xs text-neutral-400">
+                <li>
+                  <a href="https://www.beastphilanthropy.org" target="_blank" rel="noreferrer" className="hover:text-white transition">
+                    Beast Philanthropy
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/@MrBeast" target="_blank" rel="noreferrer" className="hover:text-white transition">
+                    MrBeast YouTube
+                  </a>
+                </li>
+                <li>
+                  <a href="https://feastables.com" target="_blank" rel="noreferrer" className="hover:text-white transition">
+                    Feastables Store
+                  </a>
+                </li>
+                <li>
+                  <Link href="/products/the-most-dangerous-games-book" className="hover:text-white transition">
+                    $1,000,000 Book Game
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="border-t border-white/5 py-4 text-center text-xs text-slate-500">
-        © 2026 E-TECH Electronics Commerce Inc. All rights reserved. Thiết kế với Next.js & Spring Boot.
+        {/* 3. Bottom Bar */}
+        <div className="pt-8 border-t border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+          <p>© 2026, MrBeast.store Powered by Shopify. All rights reserved.</p>
+
+          <div className="flex items-center gap-3">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">SECURE CHECKOUT</span>
+            <div className="flex items-center gap-2 opacity-80">
+              <span className="px-1.5 py-0.5 rounded bg-neutral-800 text-[10px] font-black text-neutral-300">VISA</span>
+              <span className="px-1.5 py-0.5 rounded bg-neutral-800 text-[10px] font-black text-neutral-300">MC</span>
+              <span className="px-1.5 py-0.5 rounded bg-neutral-800 text-[10px] font-black text-neutral-300">AMEX</span>
+              <span className="px-1.5 py-0.5 rounded bg-neutral-800 text-[10px] font-black text-neutral-300">PAYPAL</span>
+              <span className="px-1.5 py-0.5 rounded bg-neutral-800 text-[10px] font-black text-neutral-300">APPLE PAY</span>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   );

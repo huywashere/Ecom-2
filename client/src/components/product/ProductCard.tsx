@@ -1,137 +1,178 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { ShoppingCart, Shield, ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
+import { ShoppingBag, Check } from 'lucide-react';
 import { Product } from '@/types';
-import { formatVND } from '@/lib/formatters';
+import { formatPrice } from '@/lib/formatters';
 import { useCartStore } from '@/store/cart-store';
+import { useCurrencyStore } from '@/store/currency-store';
 
 interface ProductCardProps {
   product: Product;
+  secondaryImage?: string;
+  badge?: string;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, secondaryImage, badge }: ProductCardProps) {
   const { addItem } = useCartStore();
+  const { currency } = useCurrencyStore();
+  const [isHovered, setIsHovered] = useState(false);
+  const [selectedSize, setSelectedSize] = useState<string>('YM');
+  const [isAdded, setIsAdded] = useState(false);
 
-  const discountPercent =
-    product.originalPrice && product.originalPrice > product.minPrice
-      ? Math.round(((product.originalPrice - product.minPrice) / product.originalPrice) * 100)
-      : 0;
+  const isSoldOut = product.totalStock === 0;
+  const isSale = product.originalPrice && product.originalPrice > product.minPrice;
+
+  const defaultSizes = product.categorySlug === 'youth'
+    ? ['YS (6/7)', 'YM (8/9)', 'YL (10/11)', 'YXL (12/13)']
+    : ['SM', 'MD', 'LG', 'XL', '2XL'];
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    // Default variant item
+    if (isSoldOut) return;
+
     addItem(
       product,
       {
-        id: product.id,
-        sku: `${product.slug}-default`,
-        variantName: 'Phiên bản tiêu chuẩn',
+        id: product.id * 100 + 1,
+        sku: `${product.slug}-${selectedSize}`,
+        variantName: `Size: ${selectedSize}`,
         price: product.minPrice,
         originalPrice: product.originalPrice,
-        stockQuantity: product.totalStock || 10,
+        stockQuantity: product.totalStock || 20,
         active: true,
+        imageUrl: product.thumbnail,
       },
       1
     );
+
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1200);
   };
 
   return (
-    <div className="group relative rounded-2xl glass-panel glass-panel-hover flex flex-col justify-between overflow-hidden">
-      {/* Badges */}
-      <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5">
-        {discountPercent > 0 && (
-          <span className="px-2 py-0.5 rounded-lg bg-rose-500/90 text-white font-extrabold text-[11px] shadow-lg shadow-rose-500/30">
-            -{discountPercent}%
-          </span>
-        )}
-        {product.featured && (
-          <span className="px-2 py-0.5 rounded-lg bg-cyan-400 text-black font-extrabold text-[10px] tracking-wide uppercase shadow-lg shadow-cyan-400/30">
-            HOT
-          </span>
-        )}
-      </div>
+    <div
+      className="group relative flex flex-col justify-between bg-white border border-neutral-200 rounded overflow-hidden transition-all duration-300 hover:shadow-lg"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Product Image Area */}
+      <Link href={`/products/${product.slug}`} className="block relative aspect-square bg-[#F7F7F8] overflow-hidden">
+        {/* Badges */}
+        <div className="absolute top-2.5 left-2.5 z-10 flex flex-col gap-1">
+          {isSoldOut ? (
+            <span className="px-2 py-0.5 bg-black text-white text-[10px] font-black uppercase tracking-wider">
+              OUT OF STOCK
+            </span>
+          ) : badge ? (
+            <span className="px-2 py-0.5 bg-[#FF007A] text-white text-[10px] font-black uppercase tracking-wider">
+              {badge}
+            </span>
+          ) : isSale ? (
+            <span className="px-2 py-0.5 bg-black text-white text-[10px] font-black uppercase tracking-wider">
+              SALE
+            </span>
+          ) : product.featured ? (
+            <span className="px-2 py-0.5 bg-[#00B2FE] text-black text-[10px] font-black uppercase tracking-wider">
+              NEW
+            </span>
+          ) : null}
+        </div>
 
-      <div className="absolute top-3 right-3 z-10">
-        <span className="px-2 py-0.5 rounded-md bg-slate-900/80 border border-white/10 text-slate-300 text-[10px] font-mono flex items-center gap-1">
-          <Shield className="w-3 h-3 text-cyan-400" /> {product.warrantyMonths}T BH
-        </span>
-      </div>
-
-      {/* Image container */}
-      <Link href={`/products/${product.slug}`} className="block relative pt-[75%] overflow-hidden bg-slate-900/80">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={product.thumbnail || '/placeholder.png'}
-          alt={product.name}
-          className="absolute inset-0 w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
-        />
+        {/* Primary Image */}
+        {product.thumbnail && (
+          <Image
+            src={secondaryImage && isHovered ? secondaryImage : product.thumbnail}
+            alt={product.name}
+            fill
+            className={`object-cover transition-transform duration-500 ${
+              isHovered ? 'scale-105' : 'scale-100'
+            }`}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+          />
+        )}
       </Link>
 
-      {/* Details */}
-      <div className="p-4 flex-1 flex flex-col justify-between">
+      {/* Product Details */}
+      <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
         <div>
-          {/* Brand & Category */}
-          <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-1.5 font-medium">
-            <span className="text-cyan-400 font-semibold">{product.brandName || 'Chính Hãng'}</span>
-            <span>•</span>
-            <span className="truncate">{product.categoryName}</span>
-          </div>
+          {/* Category */}
+          <p className="text-[10px] font-black uppercase tracking-widest text-neutral-400 mb-1">
+            {product.categoryName || 'MrBeast Official'}
+          </p>
 
           {/* Title */}
           <Link href={`/products/${product.slug}`}>
-            <h3 className="text-white font-semibold text-sm leading-snug line-clamp-2 hover:text-cyan-400 transition mb-2">
+            <h3 className="text-sm font-black uppercase text-black line-clamp-2 hover:text-[#00B2FE] transition-colors leading-tight">
               {product.name}
             </h3>
           </Link>
-
-          {/* Short specs highlight */}
-          {product.shortDescription && (
-            <p className="text-xs text-slate-400 line-clamp-2 mb-3 leading-relaxed">
-              {product.shortDescription}
-            </p>
-          )}
         </div>
 
         <div>
           {/* Price */}
-          <div className="flex items-baseline gap-2 mb-3">
-            <span className="text-cyan-400 font-extrabold text-base tracking-tight">
-              {formatVND(product.minPrice)}
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-sm font-black text-black">
+              {formatPrice(product.minPrice, currency)}
             </span>
-            {product.originalPrice && product.originalPrice > product.minPrice && (
-              <span className="text-xs text-slate-500 line-through">
-                {formatVND(product.originalPrice)}
+            {isSale && (
+              <span className="text-xs text-neutral-400 font-bold line-through">
+                {formatPrice(product.originalPrice, currency)}
               </span>
             )}
           </div>
 
-          {/* Stock bar */}
-          <div className="flex items-center justify-between text-[11px] mb-3">
-            <span className="text-emerald-400 font-medium flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-              {product.totalStock > 0 ? `Còn hàng (${product.totalStock})` : 'Hết hàng'}
-            </span>
-          </div>
+          {/* Quick Size Select Swatches */}
+          {!isSoldOut && (
+            <div className="flex items-center gap-1 overflow-x-auto py-1 no-scrollbar mb-2">
+              {defaultSizes.map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setSelectedSize(size);
+                  }}
+                  className={`px-1.5 py-0.5 text-[10px] font-black uppercase rounded border transition shrink-0 ${
+                    selectedSize === size
+                      ? 'bg-black text-white border-black'
+                      : 'bg-neutral-50 text-neutral-700 border-neutral-200 hover:border-black'
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          )}
 
-          {/* Action buttons */}
-          <div className="grid grid-cols-5 gap-2 pt-1 border-t border-white/5">
-            <Link
-              href={`/products/${product.slug}`}
-              className="col-span-3 py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center justify-center gap-1 transition"
-            >
-              Chi tiết <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
-            </Link>
-            <button
-              onClick={handleQuickAdd}
-              className="col-span-2 py-2 px-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-bold text-xs flex items-center justify-center gap-1 transition shadow-md shadow-cyan-500/20"
-              title="Thêm vào giỏ hàng"
-            >
-              <ShoppingCart className="w-3.5 h-3.5" /> Thêm
-            </button>
-          </div>
+          {/* Quick Add Button */}
+          <button
+            onClick={handleQuickAdd}
+            disabled={isSoldOut}
+            className={`w-full py-2.5 px-3 text-xs font-black uppercase tracking-wider transition flex items-center justify-center gap-1.5 ${
+              isSoldOut
+                ? 'bg-neutral-200 text-neutral-400 cursor-not-allowed'
+                : isAdded
+                ? 'bg-green-600 text-white'
+                : 'bg-black hover:bg-neutral-800 text-white'
+            }`}
+          >
+            {isSoldOut ? (
+              'Sold Out'
+            ) : isAdded ? (
+              <>
+                <Check className="w-3.5 h-3.5" /> Added!
+              </>
+            ) : (
+              <>
+                <ShoppingBag className="w-3.5 h-3.5" /> Quick Add
+              </>
+            )}
+          </button>
         </div>
       </div>
     </div>

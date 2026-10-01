@@ -1,174 +1,233 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { ShoppingBag, ArrowRight, Trash2, Plus, Minus, ShieldCheck, Truck } from 'lucide-react';
+import Image from 'next/image';
+import { ShoppingBag, ArrowRight, Trash2, Plus, Minus, Truck, Gift, ShieldCheck } from 'lucide-react';
 import { useCartStore } from '@/store/cart-store';
-import { formatVND } from '@/lib/formatters';
+import { useCurrencyStore } from '@/store/currency-store';
+import { formatPrice } from '@/lib/formatters';
 
 export default function CartPage() {
   const { cart, updateQuantity, removeItem, clearCart } = useCartStore();
+  const { currency } = useCurrencyStore();
+  const [orderNote, setOrderNote] = useState('');
+
+  const FREE_SHIPPING_THRESHOLD = 75;
+  const FREE_GIFT_THRESHOLD = 100;
+
+  const currentTotal = cart.totalPrice;
+  const shippingRemaining = Math.max(0, FREE_SHIPPING_THRESHOLD - currentTotal);
+  const giftRemaining = Math.max(0, FREE_GIFT_THRESHOLD - currentTotal);
+  const progressPercent = Math.min(100, Math.round((currentTotal / FREE_GIFT_THRESHOLD) * 100));
 
   if (cart.items.length === 0) {
     return (
-      <div className="py-20 max-w-lg mx-auto text-center space-y-6">
-        <div className="w-20 h-20 rounded-3xl bg-slate-900 border border-white/10 flex items-center justify-center mx-auto text-cyan-400">
+      <div className="py-24 max-w-lg mx-auto text-center space-y-6 px-4">
+        <div className="w-20 h-20 rounded-full bg-neutral-100 flex items-center justify-center mx-auto text-neutral-400">
           <ShoppingBag className="w-10 h-10" />
         </div>
         <div>
-          <h1 className="text-2xl font-black text-white">Giỏ Hàng Của Bạn Đang Trống</h1>
-          <p className="text-xs text-slate-400 mt-2">
-            Hãy khám phá các thiết bị công nghệ hàng đầu như MacBook M3, ROG Strix SCAR 18 và iPhone 16 Pro Max.
+          <h1 className="text-2xl sm:text-3xl font-black uppercase text-black">Your Cart is Empty</h1>
+          <p className="text-xs text-neutral-500 mt-2">
+            Explore the latest MrBeast football drop, athletic tees, and Feastables chocolate bundles.
           </p>
         </div>
         <Link
           href="/products"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-cyan-400 text-black font-extrabold text-xs hover:bg-cyan-300 transition"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-black text-white font-black uppercase text-xs tracking-widest hover:bg-neutral-800 transition"
         >
-          Khám phá sản phẩm ngay <ArrowRight className="w-4 h-4" />
+          Shop Best Sellers <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
       {/* Title */}
-      <div className="flex items-center justify-between pb-4 border-b border-white/10">
+      <div className="flex items-center justify-between pb-6 border-b border-neutral-200">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-            Giỏ Hàng Công Nghệ
+          <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-black">
+            Your Shopping Cart
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
-            Bạn đang có <strong className="text-cyan-400">{cart.totalItems}</strong> sản phẩm trong giỏ
+          <p className="text-xs font-semibold text-neutral-500 mt-1">
+            You have <strong className="text-black font-extrabold">{cart.totalItems}</strong> items in your cart
           </p>
         </div>
 
         <button
           onClick={clearCart}
-          className="text-xs text-rose-400 hover:text-rose-300 flex items-center gap-1 font-medium transition"
+          className="text-xs text-neutral-500 hover:text-red-600 flex items-center gap-1 font-bold uppercase transition"
         >
-          <Trash2 className="w-3.5 h-3.5" /> Xóa tất cả
+          <Trash2 className="w-3.5 h-3.5" /> Clear Cart
         </button>
+      </div>
+
+      {/* Free Shipping / Free Socks Banner */}
+      <div className="p-4 sm:p-5 bg-neutral-50 border border-neutral-200 rounded max-w-3xl">
+        <div className="text-xs font-black uppercase tracking-tight mb-2 text-neutral-800">
+          {currentTotal >= FREE_GIFT_THRESHOLD ? (
+            <span className="text-[#FF007A] flex items-center gap-1.5">
+              <Gift className="w-4 h-4" /> YOU UNLOCKED FREE SHIPPING & FREE MRBEAST CAMO SOCKS!
+            </span>
+          ) : currentTotal >= FREE_SHIPPING_THRESHOLD ? (
+            <span className="text-[#00B2FE] flex items-center gap-1.5">
+              <Truck className="w-4 h-4" /> YOU UNLOCKED FREE SHIPPING! Add {formatPrice(giftRemaining, currency)} more for FREE SOCKS!
+            </span>
+          ) : (
+            <span>
+              You&apos;re <strong className="text-black font-extrabold">{formatPrice(shippingRemaining, currency)}</strong> away from <strong className="text-[#00B2FE]">FREE SHIPPING</strong>!
+            </span>
+          )}
+        </div>
+        <div className="w-full h-2.5 bg-neutral-200 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-[#00B2FE] via-[#00B2FE] to-[#FF007A] transition-all duration-300"
+            style={{ width: `${progressPercent}%` }}
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Cart Item List */}
         <div className="lg:col-span-8 space-y-4">
-          {cart.items.map((item) => (
-            <div
-              key={item.id}
-              className="rounded-2xl glass-panel p-4 sm:p-5 border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-20 h-20 rounded-2xl bg-slate-900 border border-white/5 overflow-hidden flex-shrink-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={item.imageUrl || '/placeholder.png'}
-                    alt={item.productName}
-                    className="w-full h-full object-cover"
-                  />
+          <div className="border border-neutral-200 rounded divide-y divide-neutral-200 bg-white">
+            {cart.items.map((item) => (
+              <div key={item.id} className="p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center">
+                {/* Image */}
+                <div className="w-20 h-20 sm:w-24 sm:h-24 relative bg-neutral-100 rounded overflow-hidden shrink-0 border border-neutral-200">
+                  {item.imageUrl ? (
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.productName}
+                      fill
+                      className="object-cover"
+                      sizes="96px"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-neutral-400">
+                      <ShoppingBag className="w-8 h-8" />
+                    </div>
+                  )}
                 </div>
-                <div className="space-y-1">
-                  <Link href={`/products/${item.productSlug}`}>
-                    <h3 className="text-sm font-bold text-white hover:text-cyan-400 transition">
-                      {item.productName}
-                    </h3>
+
+                {/* Details */}
+                <div className="flex-1 min-w-0">
+                  <Link
+                    href={`/products/${item.productSlug}`}
+                    className="text-sm sm:text-base font-black uppercase text-black hover:text-[#00B2FE] transition truncate block"
+                  >
+                    {item.productName}
                   </Link>
-                  <p className="text-xs text-slate-400">{item.variantName}</p>
-                  <p className="text-xs text-cyan-400 font-bold sm:hidden">
-                    {formatVND(item.price)}
+                  {item.variantName && (
+                    <p className="text-xs text-neutral-500 font-semibold mt-0.5">{item.variantName}</p>
+                  )}
+                  <p className="text-xs font-black text-black mt-2">
+                    {formatPrice(item.price, currency)} each
                   </p>
                 </div>
-              </div>
 
-              <div className="flex items-center justify-between w-full sm:w-auto gap-6">
-                <span className="hidden sm:inline text-xs font-bold text-cyan-400">
-                  {formatVND(item.price)}
-                </span>
+                {/* Quantity */}
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center border border-neutral-300 rounded">
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      className="p-2 hover:bg-neutral-100 text-neutral-600 transition"
+                      aria-label="Decrease quantity"
+                    >
+                      <Minus className="w-3.5 h-3.5" />
+                    </button>
+                    <span className="px-3 text-xs font-black text-black min-w-[28px] text-center">
+                      {item.quantity}
+                    </span>
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      className="p-2 hover:bg-neutral-100 text-neutral-600 transition"
+                      aria-label="Increase quantity"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
 
-                {/* Counter */}
-                <div className="flex items-center gap-2 bg-slate-900 rounded-xl p-1 border border-white/10">
                   <button
-                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                    className="p-1 hover:text-cyan-400 text-slate-400 transition"
+                    onClick={() => removeItem(item.id)}
+                    className="p-2 text-neutral-400 hover:text-red-600 transition"
+                    aria-label="Remove item"
                   >
-                    <Minus className="w-3.5 h-3.5" />
-                  </button>
-                  <span className="w-7 text-center text-xs font-bold text-white">
-                    {item.quantity}
-                  </span>
-                  <button
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    className="p-1 hover:text-cyan-400 text-slate-400 transition"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
+                    <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
 
                 {/* Subtotal */}
-                <span className="text-sm font-extrabold text-white min-w-[100px] text-right">
-                  {formatVND(item.subtotal)}
-                </span>
-
-                <button
-                  onClick={() => removeItem(item.id)}
-                  className="text-slate-500 hover:text-rose-400 p-1.5 transition"
-                  title="Xóa món hàng"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
+                <div className="text-right sm:min-w-[100px]">
+                  <span className="text-sm font-black text-black">
+                    {formatPrice(item.subtotal, currency)}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
 
-          <div className="p-4 rounded-2xl bg-cyan-500/5 border border-cyan-500/20 flex items-center gap-3 text-xs text-cyan-300">
-            <Truck className="w-5 h-5 flex-shrink-0" />
-            <span>Đơn hàng của bạn đủ điều kiện nhận <strong>Giao Hàng Hỏa Tốc Miễn Phí</strong> toàn quốc!</span>
+          {/* Order Note */}
+          <div className="p-4 bg-white border border-neutral-200 rounded space-y-2">
+            <label className="text-xs font-black uppercase text-black block">
+              Special Instructions / Order Note
+            </label>
+            <textarea
+              rows={2}
+              value={orderNote}
+              onChange={(e) => setOrderNote(e.target.value)}
+              placeholder="Leave a note with your order (optional)..."
+              className="w-full text-xs p-3 border border-neutral-200 rounded focus:outline-none focus:border-black"
+            />
           </div>
         </div>
 
-        {/* Order Summary Checkout Card */}
-        <div className="lg:col-span-4 rounded-3xl glass-panel p-6 border border-white/10 space-y-6">
-          <h2 className="text-base font-bold text-white pb-3 border-b border-white/10">
-            Tóm Tắt Đơn Hàng
+        {/* Order Summary Sidebar */}
+        <div className="lg:col-span-4 bg-white border border-neutral-200 rounded p-6 space-y-6">
+          <h2 className="text-base font-black uppercase text-black pb-3 border-b border-neutral-200">
+            Order Summary
           </h2>
 
-          <div className="space-y-3 text-xs">
-            <div className="flex justify-between text-slate-400">
-              <span>Tổng tiền hàng:</span>
-              <span className="text-white font-semibold">{formatVND(cart.totalPrice)}</span>
+          <div className="space-y-3 text-xs font-semibold text-neutral-600">
+            <div className="flex justify-between">
+              <span>Subtotal</span>
+              <span className="text-black font-black">{formatPrice(cart.totalPrice, currency)}</span>
             </div>
-            <div className="flex justify-between text-slate-400">
-              <span>Phí vận chuyển:</span>
-              <span className="text-emerald-400 font-semibold">Miễn phí (0 ₫)</span>
+            <div className="flex justify-between">
+              <span>Estimated Shipping</span>
+              <span className={currentTotal >= FREE_SHIPPING_THRESHOLD ? 'text-green-600 font-black' : 'text-black font-black'}>
+                {currentTotal >= FREE_SHIPPING_THRESHOLD ? 'FREE' : formatPrice(6.99, currency)}
+              </span>
             </div>
-            <div className="flex justify-between text-slate-400">
-              <span>Giảm giá voucher:</span>
-              <span className="text-slate-400 font-semibold">0 ₫</span>
+            <div className="flex justify-between">
+              <span>Estimated Taxes</span>
+              <span>Calculated at checkout</span>
             </div>
+          </div>
 
-            <div className="pt-3 border-t border-white/10 flex justify-between items-baseline">
-              <span className="text-sm font-bold text-white">Tổng thanh toán:</span>
-              <span className="text-xl font-black text-cyan-400">{formatVND(cart.totalPrice)}</span>
-            </div>
-            <p className="text-[11px] text-slate-500 text-right">(Đã bao gồm thuế VAT)</p>
+          <div className="pt-4 border-t border-neutral-200 flex justify-between items-baseline">
+            <span className="text-sm font-black uppercase text-black">Estimated Total</span>
+            <span className="text-2xl font-black text-black">
+              {formatPrice(currentTotal >= FREE_SHIPPING_THRESHOLD ? currentTotal : currentTotal + 6.99, currency)}
+            </span>
           </div>
 
           <Link
             href="/checkout"
-            className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition shadow-xl shadow-cyan-500/25"
+            className="w-full py-4 bg-black hover:bg-neutral-800 text-white font-black uppercase text-xs tracking-widest text-center transition flex items-center justify-center gap-2 shadow-md"
           >
-            Tiến Hành Thanh Toán <ArrowRight className="w-4 h-4" />
+            Proceed To Checkout <ArrowRight className="w-4 h-4" />
           </Link>
 
-          <div className="space-y-2 pt-2 border-t border-white/5 text-[11px] text-slate-400">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-cyan-400" /> Cam kết hàng chính hãng 100%
-            </div>
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-cyan-400" /> Hỗ trợ đổi trả trong 30 ngày
-            </div>
+          <div className="space-y-2 pt-2 border-t border-neutral-100 text-[11px] text-neutral-500">
+            <p className="flex items-center gap-1.5 font-bold">
+              <ShieldCheck className="w-4 h-4 text-green-600" /> 100% Guaranteed Safe Checkout
+            </p>
+            <p className="flex items-center gap-1.5 font-bold">
+              <Truck className="w-4 h-4 text-[#00B2FE]" /> Fast Worldwide Tracking Included
+            </p>
           </div>
         </div>
       </div>

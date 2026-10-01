@@ -3,10 +3,14 @@ import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/layout/CartDrawer';
+import PredictiveSearch from '@/components/layout/PredictiveSearch';
 
 export const metadata: Metadata = {
-  title: 'E-TECH | Hệ Thống Bán Lẻ Đồ Điện Tử & Công Nghệ Hàng Đầu',
-  description: 'Chuyên cung cấp MacBook, Laptop Gaming RTX 4090, iPhone 16 Pro Max, Màn hình OLED, Bàn phím cơ chính hãng 100% bảo hành 24 tháng.',
+  title: 'MrBeast.Store | The ONLY Official Merch Store for MrBeast in the world',
+  description: 'Shop official MrBeast merch, hoodies, tees, Feastables chocolate, Beast Athletics gear, and toys. 100% authentic, fast worldwide shipping.',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
@@ -15,13 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" className="dark">
-      <body className="min-h-screen flex flex-col bg-[#090D16] text-slate-100 antialiased selection:bg-cyan-500 selection:text-black">
+    <html lang="en">
+      <body className="min-h-screen flex flex-col bg-white text-black antialiased selection:bg-[#00B2FE] selection:text-black">
         <Navbar />
-        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <main className="flex-1 w-full">
           {children}
         </main>
         <CartDrawer />
+        <PredictiveSearch />
         <Footer />
       </body>
     </html>
