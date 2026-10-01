@@ -1,0 +1,44 @@
+package com.ecom.service;
+
+import com.ecom.dto.response.CategoryDto;
+import com.ecom.entity.Category;
+import com.ecom.exception.ResourceNotFoundException;
+import com.ecom.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class CategoryService {
+
+    private final CategoryRepository categoryRepository;
+
+    @Transactional(readOnly = true)
+    public List<CategoryDto> getAllCategories() {
+        return categoryRepository.findAll().stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public CategoryDto getCategoryBySlug(String slug) {
+        Category category = categoryRepository.findBySlug(slug)
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy danh mục: " + slug));
+        return mapToDto(category);
+    }
+
+    public CategoryDto mapToDto(Category category) {
+        return CategoryDto.builder()
+                .id(category.getId())
+                .name(category.getName())
+                .slug(category.getSlug())
+                .icon(category.getIcon())
+                .description(category.getDescription())
+                .parentId(category.getParentId())
+                .build();
+    }
+}
