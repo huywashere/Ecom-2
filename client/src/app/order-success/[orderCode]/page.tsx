@@ -66,6 +66,18 @@ export default function OrderSuccessPage() {
               <span className="font-bold text-neutral-500 block mb-0.5">Địa Chỉ Giao:</span>
               <p className="text-neutral-800 leading-snug">{order.shippingAddress}</p>
             </div>
+            <div>
+              <span className="font-bold text-neutral-500 block mb-0.5">Phương Thức Thanh Toán:</span>
+              <p className="font-bold text-cyan-700">
+                {order.paymentMethod === 'NOVAGATE' ? '⚡ Cổng NovaGate (VietQR Napas 24/7)' : order.paymentMethod}
+              </p>
+            </div>
+            <div>
+              <span className="font-bold text-neutral-500 block mb-0.5">Trạng Thái Thanh Toán:</span>
+              <p className={`font-bold ${order.paymentStatus === 'COMPLETED' ? 'text-emerald-600' : 'text-amber-600'}`}>
+                {order.paymentStatus === 'COMPLETED' ? '● Đã thanh toán thành công' : '○ Chờ thu tiền'}
+              </p>
+            </div>
           </div>
         )}
 

@@ -620,8 +620,14 @@ export default function AdminDashboardPage() {
                           {/* Payment */}
                           <td className="py-4 px-4 whitespace-nowrap">
                             <div className="space-y-1">
-                              <span className="px-2 py-0.5 bg-neutral-100 border border-neutral-300 text-black font-black uppercase text-[10px] rounded-xs block w-fit">
-                                {order.paymentMethod}
+                              <span
+                                className={`px-2 py-0.5 font-black uppercase text-[10px] rounded-xs block w-fit ${
+                                  order.paymentMethod === 'NOVAGATE'
+                                    ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/40 shadow-xs'
+                                    : 'bg-neutral-100 border border-neutral-300 text-black'
+                                }`}
+                              >
+                                {order.paymentMethod === 'NOVAGATE' ? '⚡ NovaGate VietQR' : order.paymentMethod}
                               </span>
                               <span
                                 className={`text-[10px] font-bold ${
